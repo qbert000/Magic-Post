@@ -1,27 +1,24 @@
 import mongoose, { mongo } from "mongoose";
 
 const userSchema = new mongoose.Schema({
-    id:{type: String, require: true},
-    username : {type: String, require: true, unique: true},
-    name: {type: String, require: true},
+    id: {type: String, require: true},
+    firstName: {type : String, require: true},
+    lastName: {type:String, require: true},
     image: String,
-    bio: String,
-    threads: [
+    orders: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Thread'
+            ref: "Order"
         }
     ],
-    onboarded: {
-        type: Boolean,
-        default: false
-    },
-    communities: [
+    address: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Communities'
+            ref: "Address"
         }
-    ]
+    ],
+    isPostion: {type: Boolean, default: false},
+    career : { type: String, default: '' },
 })
 
 

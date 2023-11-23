@@ -5,33 +5,26 @@ import User from "../models/user.model";
 import connectData from "../mongoose"
 
 interface Params {
-    userId: string;
-    username: string;
-    name: string;
-    bio: string;
-    image: string;
+    id: string,
+    firstName: string,
+    lastName: string,
+    image: string,
     path: string;
   }
   
 export async function updateUser({
-    userId,
-    bio,
-    name,
-    path,
-    username,
-    image,
+    id, firstName, lastName, image, path
   }: Params): Promise<void> {
     try {
       connectData();
   
       await User.findOneAndUpdate(
-        { id: userId },
+        { id: id },
         {
-          username: username.toLowerCase(),
-          name,
-          bio,
+          firstName,
+          lastName,
           image,
-          onboarded: true,
+          path,
         },
         { upsert: true }
       );
@@ -55,6 +48,6 @@ export async function fetchUser(userId:string) {
         //     model: Community
         // })
     } catch {
-        throw new Error('failed to fetch user')
+        // throw new Error('failed to fetch user')
     }
 }
