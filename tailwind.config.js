@@ -189,6 +189,10 @@ module.exports = {
         "gray-1": "#697C89",
         "fun-1": "#eab308",
         "fun-2" : "#f87171",
+        "pink-1": "#D67B9C",
+        "pink-2": "#FAD2E0",
+        "pink-3" :"#FFC2C7",
+        "grey-1" : "e5e5e5",
         glassmorphism: "rgba(16, 16, 18, 0.60)",
       },
       boxShadow: {

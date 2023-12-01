@@ -1,14 +1,15 @@
 'use server'
 
-import Address from "../models/address.model";
+import { address } from "@/contants/Address";
 import Order from "../models/order.model";
+import TransPoint from "../models/transPoint.model";
 import User from "../models/user.model";
 import connectData from "../mongoose"
 
 interface Params {
     sender: string,
-    receiver: string,
-    sdt: string,
+    receiverName: string,
+    phone: string,
     description: string,
     // typeOrder: string,
     // specailService: string,
@@ -20,11 +21,11 @@ interface Params {
 // creat new order
 export async function createNewOrder({
     sender, // sender id 
-    receiver,   // ten nguoi gui
+    receiverName,   // ten nguoi gui
     city, // thanh pho
     district, // huyen/ quan
     ward,// xa
-    sdt,// so dien thoai 
+    phone,// so dien thoai 
     description, // ghi chu 
     // typeOrder, // loai hang gui
     // specailService,// dich vu dac biet 
@@ -33,36 +34,48 @@ export async function createNewOrder({
         connectData();
         const createAt = new Date()
 
-        let newAddress = await Address.findOne({
-            city: city,
-            district: district,
-            ward: ward,
-        })
-        if(!newAddress) {
-            newAddress = await Address.create({
-                city,
-                district,
-                ward,
-            })
-        }
-
         const newOrder = await Order.create({
-            sender: sender,
-            receiver,
-            createAt,
-            address : newAddress,
-            sdt,
+            sender,
+            receiverName,
+            city,
+            district,
+            ward,
+            phone,
             description,
+            statusDate: createAt,
+            statusOption: "don hang duoc tao",
+            statusIsDone: false,
             // typeOrder,
             // specailService,
             
         })
-        await User.findByIdAndUpdate(sender, {
-            $push: {orders: newOrder._id}
+        await newOrder.$push({
+            statusDate: createAt,
+            statusOption: "don hang duoc tao",
+            statusIsDone: false,
+        })
+        const user = await User.findById({
+            id: sender
+        })
+
+        await TransPoint.findOneAndUpdate({
+            address : city
+        }, {
+            $push: {order : newOrder._id}
+        })
+        await user.$push({
+            order: newOrder._id
         })
     } catch {
-        // throw new Error('asdasaasd')
+
     }
+}
+
+
+//fetch order 
+export async function fetchOrder(id:string) {
+    connectData()
+    return await Order.findById(id)
 }
 
 // update status 
@@ -73,8 +86,11 @@ export async function UpdateStatus(id:String, des:String)  {
         $push: {
             statusDate: date,
             statusOption: des,
+            statusIsDone:{
+                $each : [true],
+                $position: -1,
+            }
         },
-        
     })
 }
 //return list date status and list option status
@@ -89,21 +105,9 @@ export async function fetchStatus(id:String) {
 }
 
 
-export async function fecthOrderByAddressCity() {
-    connectData();
-    const listOrder = Order.find({ address: " quyen"})
-        .sort({createAt:"desc"})
-        // .skip(30)
-        .exec();
-
-    return listOrder
-    
-
-}
 
 
-export async function findAddressOfOrder(id:string) : Promise<any> {
-    const address = await Order.findById(id)
-    
-    return address.sdt;
-}
+
+
+
+

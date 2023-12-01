@@ -51,3 +51,9 @@ export async function fetchUser(userId:string) {
         // throw new Error('failed to fetch user')
     }
 }
+
+export async function fetchListOrderOfUser(id:string) {
+  connectData()
+  const user = await User.findById(id)
+  return user.orders
+}

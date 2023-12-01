@@ -8,14 +8,25 @@ export default async function Home() {
   const user = await currentUser()
   if(!user) return;
   const userInfor = await fetchUser(user.id)
+  let username = "chua phai chinh chu"
+  if(userInfor.firstName == ' qbert') {
+    username= userInfor.firstName
+  } else {
+    return
+  }
 
   const userdata = {
     id: userInfor._id.toString()
   }
   return (
-    <div className='text-pink-2 '>
+    <div>
+      <Link href={'/sign-in'}>this is {username} </Link>
+      <UserButton afterSignOutUrl='/'/>
       
-      home page
+
+      <section className='mt-9 bg-dark-2 p-10'>
+        <Test user= {userdata}/>
+      </section>
     </div>
   )
 }

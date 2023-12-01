@@ -27,9 +27,12 @@ import { Input } from "@/components/ui/input"
 import { OrderValidation } from "@/lib/validations/order";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { UpdateStatus, createNewOrder, fecthOrderByAddressCity, fetchStatus, findAddressOfOrder } from "@/lib/actions/order.action";
+import { UpdateStatus, createNewOrder, fetchOrder, fetchStatus} from "@/lib/actions/order.action";
 import {  ChevronsUpDown } from "lucide-react";
 import { useState } from "react";
+import { createNewTransformPoint } from "@/lib/actions/transformPoint.action";
+import { address } from "@/contants/Address";
+import { fetchListOrderOfUser } from "@/lib/actions/user.action";
 
 const languages = [
   { label: "English", value: "en" },
@@ -39,8 +42,8 @@ const languages = [
   { label: "Portuguese", value: "pt" },
   { label: "Russian", value: "ru" },
   { label: "Japanese", value: "ja" },
-  { label: "Korean", value: "ko" },
-  { label: "Chinese", value: "zh" },
+  { label: "Korean", value: "Cầu giấy" },
+  { label: "Chinese", value: "Thanh Trì" },
 ] as const
 
 interface Props {
@@ -63,15 +66,14 @@ const Test =  ({user}: Props) => {
   const onSubmit = async (values: z.infer<typeof OrderValidation>) => {
     await createNewOrder({
       sender: user.id ,
-      receiver: values.receiver,
-      sdt: values.sdt,
+      receiverName: values.receiverName,
+      phone: values.phone,
       description: values.description,
       // typeOrder: values.typeOrder,
       // specailService: values.specialService,
       city: values.address.city,
       district: values.address.district,
       ward: values.address.ward,
-      
     });
 
   };
@@ -81,11 +83,24 @@ const Test =  ({user}: Props) => {
   }
   const getstatus = async (id:String) => {
     const liststatus = await fetchStatus(id);
-    console.log(liststatus)
+    console.log(liststatus.date)
+    console.log(liststatus.option)
+    console.log(liststatus.date.length)
   }
-  const getorder = async () => {
-    const listorder = await fecthOrderByAddressCity()
-    console.log(listorder)
+  const getorder = async (id : string) => {
+    // const listOrder = await fetchListOrderOfUser(id)
+    // // console.log(listOrder)
+    // listOrder.map(async (order:string) => {
+    //   const fo = await fetchOrder(order)
+    //   console.log(fo)
+    // })
+    
+  }
+  const setallDistrict = async () => {
+    address[0].district.map(async (address) => {
+      await createNewTransformPoint(address.name)
+    })
+    
   }
 
 
@@ -98,7 +113,7 @@ const Test =  ({user}: Props) => {
     >
       {/* // first name */}
       <FormField
-        name='receiver'
+        name='receiverName'
         control={form.control}
         render={({ field }) => (
           <FormItem className='flex w-full flex-col gap-3'>
@@ -118,7 +133,7 @@ const Test =  ({user}: Props) => {
       />
       {/* last name  */}
       <FormField
-        name='sdt'
+        name='phone'
         control={form.control}
         render={({ field }) => (
           <FormItem className='flex w-full flex-col gap-3'>
@@ -324,9 +339,10 @@ const Test =  ({user}: Props) => {
       </Button>
     </form>
     </Form>
-    <Button onClick={()=> click("655ac528b32ac58ba93bda09", "da toi")}>clcik</Button>
-    <Button onClick={()=> getstatus("655ac528b32ac58ba93bda09")}>get status</Button>
-    <Button onClick={() => getorder()}>get order by city</Button>
+    <Button onClick={()=> click("6563fca26c35f5a1c5f5d65f", "da toi")}>set status</Button>
+    <Button onClick={()=> getstatus("6563fca26c35f5a1c5f5d65f")}>get status</Button>
+    <Button onClick={() => getorder("6557df5244d6caecdccedb7a")}>get order by city</Button>
+    <Button onClick={() => setallDistrict()}>Set all district</Button>
     </>
   )
 }

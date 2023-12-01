@@ -1,6 +1,5 @@
 import mongoose, { mongo } from "mongoose";
 import { string } from "zod";
-import Address from "./address.model";
 
 const orderSchema = new mongoose.Schema({
     id: {type: String, require: true},
@@ -10,25 +9,32 @@ const orderSchema = new mongoose.Schema({
     statusOption: [
         {type: String}
     ],
+    statusIsDone :[
+        {
+            type:Boolean,
+        }
+    ],
     sender: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
     },
-    receiver: {
+    receiverName: {
         type: String,
     },
     createAt: {
         type: Date, require: true
     },
-    complete: {
-        type: Date
-    },
     description: {type: String},
-    address:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Address"
+    city : {
+        type : String,
     },
-    sdt:{type: String},
+    district: {
+        type: String,
+    }, 
+    ward : {
+        type : String,
+    },
+    phone:{type: String},
     typeOrder: {
         type: String, require: true
     },

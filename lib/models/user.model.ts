@@ -11,12 +11,6 @@ const userSchema = new mongoose.Schema({
             ref: "Order"
         }
     ],
-    address: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Address"
-        }
-    ],
     isPostion: {type: Boolean, default: false},
     career : { type: String, default: '' },
 })
