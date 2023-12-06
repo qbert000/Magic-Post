@@ -15,7 +15,7 @@ export default async function Home() {
   return (
     <div className='text-pink-2 '>
       
-      home page
+      home page ádassdafuisdnfisnfisenrqnn
     </div>
   )
 }
