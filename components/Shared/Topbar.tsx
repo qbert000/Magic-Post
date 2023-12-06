@@ -9,11 +9,11 @@ const Topbar = () =>  {
     <>
     <nav className='topbar'>
       <Link href='/' className='flex items-center gap-4'>
-        {/* <Image 
+        <Image 
             src={logo} 
             alt='logo' 
-            width={120}  
-        /> */}
+            width={100}  
+        />
         <p className='text-heading3-bold text-light-1 max-xs:hidden'>Magic Post</p>
       </Link>
 

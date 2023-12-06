@@ -7,11 +7,11 @@ const orderSchema = new mongoose.Schema({
         {type: Date, require: true}
     ],
     statusOption: [
-        {type: String}
+        {type: String, require: true}
     ],
     statusIsDone :[
         {
-            type:Boolean,
+            type:Boolean, require: true
         }
     ],
     sender: {
@@ -20,9 +20,6 @@ const orderSchema = new mongoose.Schema({
     },
     receiverName: {
         type: String,
-    },
-    createAt: {
-        type: Date, require: true
     },
     description: {type: String},
     city : {
@@ -33,6 +30,9 @@ const orderSchema = new mongoose.Schema({
     }, 
     ward : {
         type : String,
+    },
+    addressSender : {
+        type: String,
     },
     phone:{type: String},
     typeOrder: {
@@ -54,3 +54,4 @@ const orderSchema = new mongoose.Schema({
 const Order = mongoose.models.Order || mongoose.model('Order', orderSchema)
 
 export default Order;
+

@@ -13,6 +13,7 @@ interface Params {
     description: string,
     // typeOrder: string,
     // specailService: string,
+    // addressSender: string,
     city: string,
     district: string,
     ward: string,
@@ -27,6 +28,7 @@ export async function createNewOrder({
     ward,// xa
     phone,// so dien thoai 
     description, // ghi chu 
+    // addressSender // dia chi nguoi gui
     // typeOrder, // loai hang gui
     // specailService,// dich vu dac biet 
 }: Params) {
@@ -47,34 +49,35 @@ export async function createNewOrder({
             statusIsDone: false,
             // typeOrder,
             // specailService,
+            // addressSender,
             
-        })
-        await newOrder.$push({
-            statusDate: createAt,
-            statusOption: "don hang duoc tao",
-            statusIsDone: false,
-        })
-        const user = await User.findById({
-            id: sender
+        }) 
+
+        // add order into user
+        await User.findByIdAndUpdate({
+            _id: sender
+        },{
+            $push : {orders: newOrder._id}
+        }) 
+
+        //add order into transPoint
+        await TransPoint.findOneAndUpdate({
+        address: city,
+        }, {
+            $push : {order: newOrder._id}
         })
 
-        await TransPoint.findOneAndUpdate({
-            address : city
-        }, {
-            $push: {order : newOrder._id}
-        })
-        await user.$push({
-            order: newOrder._id
-        })
     } catch {
 
     }
+    
 }
 
 
 //fetch order 
 export async function fetchOrder(id:string) {
-    connectData()
+    connectData();
+    
     return await Order.findById(id)
 }
 
@@ -82,7 +85,7 @@ export async function fetchOrder(id:string) {
 export async function UpdateStatus(id:String, des:String)  {
     connectData();
     const date = new Date();
-    await Order.findByIdAndUpdate(id,{
+    await Order.findByIdAndUpdate({_id:id},{
         $push: {
             statusDate: date,
             statusOption: des,
@@ -90,7 +93,7 @@ export async function UpdateStatus(id:String, des:String)  {
                 $each : [true],
                 $position: -1,
             }
-        },
+        }
     })
 }
 //return list date status and list option status
@@ -103,6 +106,39 @@ export async function fetchStatus(id:String) {
             option: status.statusOption
         };
 }
+
+
+//find all order 
+export async function finall() {
+    connectData();
+    const order = await Order.find({_id :"656cf94768975fe51d167d7e"})
+
+
+    return order
+}
+
+
+export async function testfetch () {
+    connectData();
+    const listorder = await Order.find({receiverName: "quyen"}, 
+    {
+        // id:1, 
+        // _id:0,
+        receiverName:1,
+        description: 1,
+        city:1,
+        district:1,
+        ward:1,
+        phone: 1,
+        "statusDate.lenght":1
+    }).sort({description: "desc"})
+        .limit(5);
+
+        return listorder;
+}
+
+
+
 
 
 

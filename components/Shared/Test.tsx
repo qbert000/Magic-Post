@@ -27,12 +27,12 @@ import { Input } from "@/components/ui/input"
 import { OrderValidation } from "@/lib/validations/order";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { UpdateStatus, createNewOrder, fetchOrder, fetchStatus} from "@/lib/actions/order.action";
+import { UpdateStatus, createNewOrder, fetchOrder, fetchStatus, testfetch} from "@/lib/actions/order.action";
 import {  ChevronsUpDown } from "lucide-react";
 import { useState } from "react";
 import { createNewTransformPoint } from "@/lib/actions/transformPoint.action";
 import { address } from "@/contants/Address";
-import { fetchListOrderOfUser } from "@/lib/actions/user.action";
+import { GetOrderByStatus, fetchListOrderOfUser, fetchUser, testUser } from "@/lib/actions/user.action";
 
 const languages = [
   { label: "English", value: "en" },
@@ -49,6 +49,7 @@ const languages = [
 interface Props {
   user:{
     id: string,
+    // order: any
   }
 }
 
@@ -71,11 +72,12 @@ const Test =  ({user}: Props) => {
       description: values.description,
       // typeOrder: values.typeOrder,
       // specailService: values.specialService,
+      // addressSender: values.addressSender,
       city: values.address.city,
       district: values.address.district,
       ward: values.address.ward,
     });
-
+    
   };
 
   const click = async (id:string, des:String) => {
@@ -89,10 +91,10 @@ const Test =  ({user}: Props) => {
   }
   const getorder = async (id : string) => {
     // const listOrder = await fetchListOrderOfUser(id)
-    // // console.log(listOrder)
+    // console.log(listOrder)
     // listOrder.map(async (order:string) => {
-    //   const fo = await fetchOrder(order)
-    //   console.log(fo)
+      const fo = await fetchOrder(id)
+      console.log(fo.city)
     // })
     
   }
@@ -101,6 +103,22 @@ const Test =  ({user}: Props) => {
       await createNewTransformPoint(address.name)
     })
     
+  }
+  const fetch = async () => {
+    const order = await testfetch();
+    console.log(order.length)
+    order.map((x:any) => {
+      console.log(x.city)
+    })
+  }
+  const sole = async () => {
+    // const use = await GetOrderByStatus("user_2Xf5SQjzEPvt0s810hVuNBPzNjC", 0) 
+    // console.log(use)
+  }
+  const fetchUserList = async () => {
+    const result = await fetchUser(user.id)
+    console.log(result)
+
   }
 
 
@@ -339,10 +357,13 @@ const Test =  ({user}: Props) => {
       </Button>
     </form>
     </Form>
-    <Button onClick={()=> click("6563fca26c35f5a1c5f5d65f", "da toi")}>set status</Button>
-    <Button onClick={()=> getstatus("6563fca26c35f5a1c5f5d65f")}>get status</Button>
-    <Button onClick={() => getorder("6557df5244d6caecdccedb7a")}>get order by city</Button>
+    <Button onClick={()=> click("656cf94768975fe51d167d7e", "da toi")}>set status</Button>
+    <Button onClick={()=> getstatus("656b908b3226a13740c03b14")}>get status</Button>
+    <Button onClick={() => getorder("6563fca26c35f5a1c5f5d65f")}>get order by city</Button>
     <Button onClick={() => setallDistrict()}>Set all district</Button>
+    <Button onClick={() => fetchUserList()}>get list order </Button>
+    <Button onClick={() => sole()}>console</Button>
+
     </>
   )
 }

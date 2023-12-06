@@ -6,22 +6,43 @@ import { useState } from "react"
 import { Button, buttonVariants } from "../ui/button"
 import Link from "next/link"
 
+interface Props {
+    sidebarlink: Link[],
+    pathnameRoot: string,
+}
 
-const RightbarCustomer = () => {
+interface Link {
+    label: string,
+    value: string,
+    link: string,
+}
+
+
+const Rightbar = ({sidebarlink, pathnameRoot} : Props) => {
     const [date, setDate] = useState<Date | undefined>(new Date())
     return (
         <>
         <section className="custome-scrollbar rightsidebar ">
-            <Link
-                href={"/add"} 
-                >
-                <Button
-                    className="bg-pink-1 md hover:bg-pink-2"
-                    size = {"sm"}
-                >
-                    + add don
-                </Button>
-            </Link>
+            <div className='flex w-full flex-1 flex-col gap-6 px-6'>
+                {sidebarlink.map((link) =>{
+                    return (
+                        <>
+                        <Link
+                            href={`${pathnameRoot}${link.link}`} 
+                        >
+                        <Button
+                            className="bg-pink-1 md hover:bg-pink-2"
+                            size = {"sm"}
+                        >
+                        {link.label}
+                        </Button>
+                        </Link>
+                        </>
+                    )
+                })}
+            </div>
+
+            
         
             <div className="">
             <Calendar
@@ -42,4 +63,4 @@ const RightbarCustomer = () => {
     )
 }
 
-export default RightbarCustomer;
+export default Rightbar;

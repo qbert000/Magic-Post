@@ -9,21 +9,34 @@ export default async function Home() {
   if(!user) return;
   const userInfor = await fetchUser(user.id)
   let username = "chua phai chinh chu"
-  if(userInfor.firstName == ' qbert') {
-    username= userInfor.firstName
-  } else {
-    return
-  }
+  // if(userInfor.firstName == ' qbert') {
+  //   username= userInfor.firstName
+  // } else {
+  //   return
+  // }
 
   const userdata = {
-    id: userInfor._id.toString()
+    id: userInfor._id,
+    // order: userInfor
   }
+  console.log(userInfor)
   return (
     <div>
       <Link href={'/sign-in'}>this is {username} </Link>
       <UserButton afterSignOutUrl='/'/>
-      
+      <div>{userInfor.id}</div>
+      {userInfor.orders.map((order:any) => {
+        <>
+        <div>
+          {order._id}
+        </div>
+        </>
+      })}
 
+      <div>
+        {userInfor.firstName}
+      </div>
+      
       <section className='mt-9 bg-dark-2 p-10'>
         <Test user= {userdata}/>
       </section>
