@@ -1,8 +1,19 @@
+import TableOrder from "@/components/forms/TableOrder";
+import { Status } from "@/contants/status";
+import { GetOrderByStatus } from "@/lib/actions/user.action";
+import { passOrderToClient } from "@/lib/util/orderUtil";
+import { currentUser } from "@clerk/nextjs";
 
-const Page = () => {
+const Page = async () => {
+    const user = await currentUser()
+    if(!user) return
+
+    const listOrder = await GetOrderByStatus(user.id, Status.payNot)
+
+    const orders = passOrderToClient(listOrder)
     return (
         <>
-        pay not
+        <TableOrder listOrder={orders} />
         </>
     )
 }

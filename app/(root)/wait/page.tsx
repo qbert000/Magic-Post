@@ -8,12 +8,12 @@ const Page = async () => {
     const user = await currentUser()
     if(!user) return
 
-    const listOrder = await GetOrderByStatus(user.id, Status.done)
+    const listOrder = await GetOrderByStatus(user.id, Status.wait)
 
     const orders = passOrderToClient(listOrder)
     return (
         <>
-            <TableOrder listOrder={orders} />
+        <TableOrder listOrder={orders} />
         </>
     )
 }

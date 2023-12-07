@@ -39,7 +39,7 @@ const Leftbar = ({sidebarlink, pathnameRoot} :Props) => {
         {sidebarlink.map((link) => {
           // khong co link con
           if(link.sub.length === 0) {
-            const isActive = (pathname.includes(link.link) && link.link.length > 0) ||
+            const isActive = (pathname.includes(link.link) && link.link.length > 1) ||
             pathname === link.link;
             return(
               <>
@@ -59,7 +59,7 @@ const Leftbar = ({sidebarlink, pathnameRoot} :Props) => {
             <>
             <p className='text-pink-1 max-lg:hidden'>{link.label}</p>
             {link.sub.map((sub) => {
-              const isActive = (pathname.includes(sub.link) && sub.link.length > 0) ||
+              const isActive = (pathname.includes(sub.link) && sub.link.length > 1) ||
               pathname === sub.link;
               return (
                 <>

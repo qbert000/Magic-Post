@@ -104,5 +104,3 @@ export async function testUser(id :string) {
     $push : {orders: id}
   })
 }
-
-

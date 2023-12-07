@@ -32,7 +32,7 @@ function RootLayout({children}: Props) {
                     <Topbar/>
                     <main className="flex flex-row">
                         <Leftbar sidebarlink={LeftbarLinkCustomer} pathnameRoot={pathnameRoot} />
-                        <section className='main-container bg-blue-1'>
+                        <section className='main-container '>
                             <div className='w-full '>
                                 {children}
                             </div>

@@ -3,7 +3,7 @@ export const LeftbarLinkCustomer = [
     {
         label: "Tất cả",
         value: "all",
-        link:'/allOrder',
+        link:'/',
         sub:[],
     },
     {
@@ -13,13 +13,19 @@ export const LeftbarLinkCustomer = [
         sub:[],
     },
     {
-        label: "Chờ vận chuyển",
+        label: "Đang vận chuyển",
         value: "transport",
         link: '/transport',
         sub:[],
     },
     {
-        label: "Đã vận chuyển",
+        label: "Chờ vận chuyển",
+        value: "wait",
+        link: "/wait",
+        sub: [],
+    },
+    {
+        label: "Hoàn Thành",
         value: "done",
         link:'/done',
         sub:[],

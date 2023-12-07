@@ -4,6 +4,7 @@ import { Number } from "mongoose"
 import TransPoint from "../models/transPoint.model"
 import User from "../models/user.model"
 import connectData from "../mongoose"
+import Order from "../models/order.model"
 
 // tao cac diem giao dich (cai nay phai viet truoc mot obejct luu tung dia danh mot)
 export async function createNewTransformPoint(address: string) {
@@ -40,11 +41,22 @@ export async function CreateNewEmployee(id:string) {
     })
 }
 
-// them order vao list 
-export async function TransPointAddOrder(city:string, order:string) {
-    await TransPoint.findOneAndUpdate({
-        address: city,
-    }, {
-        $push : {order: order}
-    })
+// lay order tu list
+export async function EmployTransGetOrder(address: string, status: number) {
+    try {
+        connectData();
+        const transPoint = await TransPoint.findOne({address: address}).populate({
+            path: "order",
+            model: Order
+        }).lean()
+
+        const orders = (transPoint as any).order
+        const newOrder = orders.filter((order:any) => order.statusDate.length === status)
+
+        return newOrder
+
+    }catch {
+
+    }
+
 }

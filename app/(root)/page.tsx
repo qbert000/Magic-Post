@@ -1,21 +1,34 @@
-import Test from '@/components/Shared/Test'
-import { fetchUser } from '@/lib/actions/user.action'
-import { UserButton, currentUser } from '@clerk/nextjs'
-import Image from 'next/image'
-import Link from 'next/link'
+import Order from "@/components/cards/Order";
+import TableOrder from "@/components/forms/TableOrder";
 
-export default async function Home() {
+import {  testfetch } from "@/lib/actions/order.action";
+import { GetOrderByStatus, fetchListOrderOfUser } from "@/lib/actions/user.action";
+import { currentUser } from "@clerk/nextjs";
+import { Status } from "@/contants/status";
+import { passOrderToClient } from "@/lib/util/orderUtil";
+
+
+
+const Page = async () => {
   const user = await currentUser()
   if(!user) return;
-  const userInfor = await fetchUser(user.id)
+  
 
-  const userdata = {
-    id: userInfor._id.toString()
-  }
-  return (
-    <div className='text-pink-2 '>
-      
-      home page
-    </div>
-  )
+  
+  // const listOrder = await GetOrderByStatus(user.id, Status.wait);
+  const listOrder = await fetchListOrderOfUser(user.id)
+
+
+  const order = passOrderToClient(listOrder)
+
+    return (
+        <>
+
+        <TableOrder listOrder={order}/>
+        
+        
+        </>
+    )
 }
+
+export default Page;

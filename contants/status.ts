@@ -3,5 +3,6 @@ export enum Status {
     transporting = 2,
     payNot = 5,
     cancel = 6,
+    done = 7,
 
 }

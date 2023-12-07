@@ -1,8 +1,9 @@
 import Leftbar from "@/components/Shared/Leftbar";
 import LeftbarManager from "@/components/Shared/Leftbar";
+import Rightbar from "@/components/Shared/Rightbar";
 import Topbar from "@/components/Shared/Topbar";
-import { LeftbarLinkEmployeeTrans } from "@/contants/sidebarlink";
-import { ClerkProvider } from "@clerk/nextjs";
+import { LeftbarLinkEmployeeTrans, RightbarLinkCustomer } from "@/contants/sidebarlink";
+import { ClerkProvider, currentUser } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { usePathname } from "next/navigation";
@@ -23,6 +24,8 @@ const inter = Inter({subsets:["latin"]})
 
 
 function RootLayout({children}: Props) {
+    const user = currentUser()
+    
     const pathnameroot = '/employeeTrans'
     return (
         <>
@@ -33,10 +36,10 @@ function RootLayout({children}: Props) {
                         <Leftbar sidebarlink={LeftbarLinkEmployeeTrans} pathnameRoot={pathnameroot}/>
                         <section className='main-container'>
                             <div className='w-full '>
-                                {children}
+                                {children}  
                             </div>
                         </section>
-                        {/* <RightbarCustomer/> */}
+                        <Rightbar sidebarlink={RightbarLinkCustomer} pathnameRoot={pathnameroot}/>
                     </main>
                 </body>
             </html>
