@@ -1,6 +1,5 @@
 'use server'
 
-import { address } from "@/contants/Address";
 import Order from "../models/order.model";
 import TransPoint from "../models/transPoint.model";
 import User from "../models/user.model";
@@ -19,7 +18,7 @@ interface Params {
     ward: string,
 }
 
-// creat new order
+// creat new order // done
 export async function createNewOrder({
     sender, // sender id 
     receiverName,   // ten nguoi gui
@@ -74,14 +73,14 @@ export async function createNewOrder({
 }
 
 
-//fetch order 
+//fetch order //done
 export async function fetchOrder(id:string) {
     connectData();
     
     return await Order.findById(id)
 }
 
-// update status 
+// update status //done
 export async function UpdateStatus(id:String, des:String)  {
     connectData();
     const date = new Date();
@@ -96,7 +95,7 @@ export async function UpdateStatus(id:String, des:String)  {
         }
     })
 }
-//return list date status and list option status
+//return list date status and list option status // done
 export async function fetchStatus(id:String) {
     connectData();
 
@@ -108,7 +107,7 @@ export async function fetchStatus(id:String) {
 }
 
 
-//find all order 
+//find all order //done
 export async function finall() {
     connectData();
     const order = await Order.find({_id :"656cf94768975fe51d167d7e"})

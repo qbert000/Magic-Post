@@ -4,7 +4,7 @@ import { Inter } from "next/font/google";
 import "../globals.css"
 import Topbar from "@/components/Shared/Topbar";
 import { Children } from "react";
-import { LeftbarLinkCustomer, RightbarLinkCustomer } from "@/contants/sidebarlink";
+import { LeftbarLinkCustomer, RightbarLinkCustomer } from "@/client/contants/sidebarlink";
 import Leftbar from "@/components/Shared/Leftbar";
 import Rightbar from "@/components/Shared/Rightbar";
 

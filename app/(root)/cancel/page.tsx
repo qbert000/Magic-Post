@@ -1,7 +1,7 @@
+import { Status } from "@/client/contants/enum";
+import { passOrderToClient } from "@/client/util/orderUtil";
 import TableOrder from "@/components/forms/TableOrder";
-import { Status } from "@/contants/status";
 import { GetOrderByStatus } from "@/lib/actions/user.action";
-import { passOrderToClient } from "@/lib/util/orderUtil";
 import { currentUser } from "@clerk/nextjs";
 
 const Page = async () => {

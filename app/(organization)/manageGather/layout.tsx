@@ -1,7 +1,7 @@
 import Leftbar from "@/components/Shared/Leftbar";
 import LeftbarManager from "@/components/Shared/Leftbar";
 import Topbar from "@/components/Shared/Topbar";
-import { LeftbarLinkEmployeeTrans, LeftbarLinkManager } from "@/contants/sidebarlink";
+import { LeftbarLinkEmployeeTrans, LeftbarLinkManager } from "@/contants/client/sidebarlink";
 import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";

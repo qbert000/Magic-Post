@@ -32,3 +32,10 @@ export const ListDescription = [
         label: "Chuyển hoàn khi hết thời gian lưu trữ"
     }
 ]
+
+export const orderTableTitle = {
+    address : "Địa Chỉ",
+    description: "Đơn Hàng",
+    phone : "Số Điện Thoại",
+    recieverName: "Người Nhận"
+}

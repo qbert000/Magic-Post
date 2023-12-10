@@ -4,8 +4,8 @@ import TableOrder from "@/components/forms/TableOrder";
 import {  testfetch } from "@/lib/actions/order.action";
 import { GetOrderByStatus, fetchListOrderOfUser } from "@/lib/actions/user.action";
 import { currentUser } from "@clerk/nextjs";
-import { Status } from "@/contants/status";
-import { passOrderToClient } from "@/lib/util/orderUtil";
+import { Status } from "@/client/contants/enum";
+import { passOrderToClient } from "@/client/util/orderUtil";
 
 
 

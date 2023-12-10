@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import User from "../models/user.model";
 import connectData from "../mongoose"
 import Order from "../models/order.model";
-import { Status } from "@/contants/status";
+import { Status } from "@/client/contants/enum";
 
 interface Params {
     id: string,
@@ -14,7 +14,7 @@ interface Params {
     path: string;
   }
 
-// tao va sua doi user (khong dung nhieu dau)
+// tao va sua doi user (khong dung nhieu dau) //done
 export async function updateUser({
     id, firstName, lastName, image, path
   }: Params): Promise<void> {
@@ -40,7 +40,7 @@ export async function updateUser({
     }
   }
 
-// tim user bang id
+// tim user bang id  //done
 export async function fetchUser(userId:string) {
     try {
         connectData();
@@ -51,7 +51,7 @@ export async function fetchUser(userId:string) {
         // throw new Error('failed to fetch user')
     }
 }
-// lay ra danh sach order cua nguoi dung
+// lay ra danh sach order cua nguoi dung  //done
 export async function fetchListOrderOfUser(id:string)  {
   try {
     connectData();
@@ -67,7 +67,7 @@ export async function fetchListOrderOfUser(id:string)  {
   }
 }
 
-//lay danh sach hang cua nguoi dung theo dieu kien
+//lay danh sach hang cua nguoi dung theo dieu kien  //done
 export async function GetOrderByStatus(id:string, status: number)  {
   try {
     connectData();
@@ -86,6 +86,32 @@ export async function GetOrderByStatus(id:string, status: number)  {
     return newOrder // tra ve mot array list order theo status
   } catch {
   }
+}
+
+interface Props {
+  id : string,
+  workPlace: string,
+  carrer: string,
+}
+// add employee to ozigation 
+export async function addEmployeetoOzigation({id, workPlace, carrer} : Props) {
+  try {
+    connectData();
+
+    const user = await User.findOne({id: id}, {
+      $set:{
+        isPostion : true,
+        career : carrer,
+        workPlace: workPlace,
+      }
+    })
+    return 1
+
+  } catch {
+    return 0
+
+  }
+
 }
 
 

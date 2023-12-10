@@ -1,48 +1,61 @@
+import { link } from "@/client/util/sidebarData";
+import { BsPeopleFill } from "react-icons/bs";
+import { MdLocationOn } from "react-icons/md";
+import { CiDeliveryTruck } from "react-icons/ci";
+import { PiShoppingCartBold } from "react-icons/pi";
 
-export const LeftbarLinkCustomer = [
+
+export const LeftbarLinkCustomer : link[] = [
     {
         label: "Tất cả",
         value: "all",
+        icon: <></>,
         link:'/',
         sub:[],
     },
     {
         label: "Chưa thanh toán",
         value: "payNot",
+        icon: <></>,
         link:'/payNot',
         sub:[],
     },
     {
         label: "Đang vận chuyển",
         value: "transport",
+        icon: <></>,
         link: '/transport',
         sub:[],
     },
     {
         label: "Chờ vận chuyển",
         value: "wait",
+        icon: <></>,
         link: "/wait",
         sub: [],
     },
     {
         label: "Hoàn Thành",
         value: "done",
+        icon: <></>,
         link:'/done',
         sub:[],
     },
     {
         label: "Trả hàng",
         value: "cancel",
+        icon: <></>,
         link:'/cancel',
         sub:[],
     }
 ]
 
 
-export const LeftbarLinkManager = [
+export const LeftbarLinkManager : link[] = [
     {
         label: "Nhân Viên",
         link: "/employees",
+        icon: <BsPeopleFill size="24" />,
         value: "employees",
         sub: [],
 
@@ -50,14 +63,16 @@ export const LeftbarLinkManager = [
     {
         label: "Thống Kê",
         link: "/statistics",
+        icon: <MdLocationOn size="24" />,
         value: "statistics",
         sub:[]
     }
 ]
 
-export const LeftbarLinkEmployeeTrans = [
+export const LeftbarLinkEmployeeTrans : link[] = [
     {
         label: "Đặt Hàng",
+        icon: <PiShoppingCartBold size="24" /> ,
         value: "order",
         link: "/order/orderTo",
         sub: [
@@ -76,6 +91,7 @@ export const LeftbarLinkEmployeeTrans = [
     {
         label: "Chuyển Phát",
         value: "shiper",
+        icon: <CiDeliveryTruck size="24" />,
         link: "/shiper/shipGo",
         sub: [
             {
@@ -92,10 +108,11 @@ export const LeftbarLinkEmployeeTrans = [
     }
 ]
 
-export const LeftbarLinkEmployeeGather = [
+export const LeftbarLinkEmployeeGather :link[] = [
     {
         label: "Điểm Giao Dịch",
         value: "neighPoints",
+        icon: <></>,
         link: "/neighPoints/receive",
         sub: [
             {
@@ -113,6 +130,7 @@ export const LeftbarLinkEmployeeGather = [
     {
         label: "Điểm Tập Kết",
         value: "finalPoint",
+        icon: <></>,
         link: "/finalPoint/receive",
         sub: [
             {
@@ -129,10 +147,11 @@ export const LeftbarLinkEmployeeGather = [
     }
 ]
 
-export const LeftbarLinkOwner =[
+export const LeftbarLinkOwner : link[] =[
     {
         label: "Nhân Viên",
         value: "employee",
+        icon : <></>,
         link: "/employees/gather",
         sub: [
             {
@@ -150,6 +169,7 @@ export const LeftbarLinkOwner =[
     {
         label: "Thống Kê",
         value : "statistics",
+        icon: <></>,
         link: "/statistics",
         sub: [
             {
@@ -178,7 +198,7 @@ export const RightbarLinkNormal = [
     {
         label: "Thêm Nhân Viên",
         value : "add employee",
-        link: "",
+        link: "/addEmployee",
     }
 ]
 

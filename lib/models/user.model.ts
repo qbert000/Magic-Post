@@ -13,6 +13,10 @@ const userSchema = new mongoose.Schema({
     ],
     isPostion: {type: Boolean, default: false},
     career : { type: String, default: '' },
+    workPlace : {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "TransPoint" || "GatherPoint"
+    }
 })
 
 
