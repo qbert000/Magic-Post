@@ -10,7 +10,7 @@ export default async function Home() {
   const userInfor = await fetchUser(user.id)
 
   const userdata = {
-    id: userInfor._id.toString()
+    id: 'ádfsdfdfdf'
   }
   return (
     <div className='text-pink-2 '>

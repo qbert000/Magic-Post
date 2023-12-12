@@ -54,6 +54,7 @@ interface Props {
 }
 
 const Test =  ({user}: Props) => {
+  
   const [open, setOpen] = useState(false)
   const [city, setCity] = useState(false)
   const [district, setDistrict] = useState(false)
@@ -113,7 +114,8 @@ const Test =  ({user}: Props) => {
   }
   const sole = async () => {
     // const use = await GetOrderByStatus("user_2Xf5SQjzEPvt0s810hVuNBPzNjC", 0) 
-    // console.log(use)
+    const use = await fetchUser("user_2Xf5SQjzEPvt0s810hVuNBPzNjC")
+    console.log(use)
   }
   const fetchUserList = async () => {
     const result = await fetchUser(user.id)

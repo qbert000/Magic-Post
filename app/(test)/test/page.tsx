@@ -16,7 +16,7 @@ export default async function Home() {
   // }
 
   const userdata = {
-    id: userInfor._id,
+    id: "ds"
     // order: userInfor
   }
   console.log(userInfor)
@@ -24,17 +24,12 @@ export default async function Home() {
     <div>
       <Link href={'/sign-in'}>this is {username} </Link>
       <UserButton afterSignOutUrl='/'/>
-      <div>{userInfor.id}</div>
-      {userInfor.orders.map((order:any) => {
-        <>
-        <div>
-          {order._id}
-        </div>
-        </>
-      })}
+
+      {user.id}
+      
 
       <div>
-        {userInfor.firstName}
+      {userInfor.firstName}
       </div>
       
       <section className='mt-9 bg-dark-2 p-10'>
