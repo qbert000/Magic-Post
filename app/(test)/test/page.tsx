@@ -16,7 +16,8 @@ export default async function Home() {
   // }
 
   const userdata = {
-    id: userInfor._id,
+    id: userInfor._id.toString(),
+    workPlace : userInfor.workPlace.toString()
     // order: userInfor
   }
   console.log(userInfor)

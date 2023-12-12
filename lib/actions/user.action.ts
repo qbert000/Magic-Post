@@ -67,7 +67,7 @@ export async function fetchListOrderOfUser(id:string)  {
   }
 }
 
-//lay danh sach hang cua nguoi dung theo dieu kien  //done
+//lay danh sach hang cua nguoi dung theo trang thai //done
 export async function GetOrderByStatus(id:string, status: number)  {
   try {
     connectData();

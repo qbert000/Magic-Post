@@ -1,4 +1,4 @@
-import { link } from "@/client/util/sidebarData";
+import { link } from "@/client/util/DataType";
 import { BsPeopleFill } from "react-icons/bs";
 import { MdLocationOn } from "react-icons/md";
 import { CiDeliveryTruck } from "react-icons/ci";
@@ -155,15 +155,15 @@ export const LeftbarLinkOwner : link[] =[
         link: "/employees/gather",
         sub: [
             {
-                label: "Điểm Tập Kết",
+                label: "Giao Dịch",
+                value: "employeeTrans",
+                link: "/employees/transform",
+            },
+            {
+                label: "Tập Kết",
                 value: "employGarther",
                 link:"/employees/gather",
             },
-            {
-                label: "Điểm Giao Dịch",
-                value: "employeeTrans",
-                link: "/employees/transform",
-            }
         ]
     },
     {
@@ -173,15 +173,16 @@ export const LeftbarLinkOwner : link[] =[
         link: "/statistics",
         sub: [
             {
+                label: "Giao Dịch",
+                value: "trans",
+                link: "/statistics/transform"
+            },
+            {
                 label:"Tập Kết",
                 value: "gather",
                 link: "/statistics/gather",
             },
-            {
-                label: "Giao Dịch",
-                value: "trans",
-                link: "/statistics/transform"
-            }
+            
         ]
     }
 ]

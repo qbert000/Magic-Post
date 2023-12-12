@@ -17,13 +17,13 @@ const Topbar = () =>  {
         <p className='text-heading3-bold text-light-1 max-xs:hidden'>Magic Post</p>
       </Link>
 
-      <div className='flex items-center gap-1'>
-        <div className='block '>
+      {/* <div className='flex items-center gap-1'> */}
+        {/* <div className='block '> */}
             <UserButton 
                 afterSignOutUrl='/'
                 
             />
-        </div>
+        {/* </div> */}
 
         {/* <OrganizationSwitcher
           appearance={{
@@ -33,7 +33,7 @@ const Topbar = () =>  {
             },
           }}
         /> */}
-      </div>
+      {/* </div> */}
     </nav>
     </>
     )

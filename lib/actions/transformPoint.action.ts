@@ -14,13 +14,6 @@ export async function createNewTransformPoint(address: string) {
     })
 }
 
-// lay du lieu nhan vien
-export async function fecthEmployee(number= 10) {
-    connectData()
-    await TransPoint.find()
-    .sort({firstName: "desc"})
-    .limit(number)
-}
 
 //search nhan vien bang ten
 export async function fecthEmployeeByName(number = 10,name:string) {
@@ -42,21 +35,54 @@ export async function CreateNewEmployee(id:string) {
 }
 
 // lay order tu list
-export async function EmployTransGetOrder(address: string, status: number) {
+export async function EmployTransGetOrder(_id : string ) {
     try {
         connectData();
-        const transPoint = await TransPoint.findOne({address: address}).populate({
+        const transPoint = await TransPoint.findById(_id).populate({
             path: "order",
             model: Order
-        }).lean()
+        }).sort({ statusDate: 1 }).lean()
 
         const orders = (transPoint as any).order
-        const newOrder = orders.filter((order:any) => order.statusDate.length === status)
+        // const newOrder = orders.filter((order:any) => order.statusDate.length === status)
 
-        return newOrder
+        return orders
 
     }catch {
 
     }
 
+}
+// lay nhan vien cua quan ly
+export async function fetchEmployeesTransPoint (_id : string) {
+    try {
+        connectData()
+        const transPoint = await TransPoint.findById(_id ).populate ({
+            path: "employeer",
+            model: User
+        }).lean()
+
+        const employees = (transPoint as any).employeer
+        return employees
+
+    }catch {
+
+    }
+}
+
+export async function ManagerTransGetOrder (_id: string) {
+    try {
+        connectData();
+        const transPoint = await TransPoint.findById(_id).populate({
+            path: "order",
+            model: Order
+        }).sort({ statusDate: 1 }).lean()
+
+        const orders = (transPoint as any).order
+
+        return orders
+
+    }catch {
+
+    } 
 }

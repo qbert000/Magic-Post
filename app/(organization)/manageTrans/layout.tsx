@@ -27,20 +27,16 @@ function RootLayout({children}: Props) {
     const pathnameroot = '/manageTrans'
     return (
         <>
-        <html lang="en">
-                <body className={`${inter.className} `}>
-                    <Topbar/>
-                    <main className="flex flex-row">
-                        <Leftbar sidebarlink={LeftbarLinkManager} pathnameRoot={pathnameroot}/>
-                        <section className='main-container'>
-                            <div className='w-full '>
-                                {children}
-                            </div>
-                        </section>
-                        <Rightbar sidebarlink={RightbarLinkNormal} pathnameRoot={pathnameroot}/>
-                    </main>
-                </body>
-            </html>
+        <Topbar/>
+        <main className="flex flex-row">
+            <Leftbar sidebarlink={LeftbarLinkManager} pathnameRoot={pathnameroot}/>
+            <section className="main-container">
+                <div className="w-full ">
+                    {children}
+                </div>
+            </section>
+            <Rightbar sidebarlink={RightbarLinkNormal} pathnameRoot={pathnameroot}/>
+        </main>
         </>
     )
 }

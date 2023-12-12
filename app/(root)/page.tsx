@@ -1,11 +1,10 @@
-import Order from "@/components/cards/Order";
-import TableOrder from "@/components/forms/TableOrder";
+import  { columns } from "@/components/columns/Order";
 
-import {  testfetch } from "@/lib/actions/order.action";
-import { GetOrderByStatus, fetchListOrderOfUser } from "@/lib/actions/user.action";
+import {  fetchListOrderOfUser } from "@/lib/actions/user.action";
 import { currentUser } from "@clerk/nextjs";
-import { Status } from "@/client/contants/enum";
+import { SearchColumns } from "@/client/contants/enum";
 import { passOrderToClient } from "@/client/util/orderUtil";
+import TableMagic from "@/components/forms/TableMagic";
 
 
 
@@ -13,20 +12,18 @@ const Page = async () => {
   const user = await currentUser()
   if(!user) return;
   
-
-  
-  // const listOrder = await GetOrderByStatus(user.id, Status.wait);
   const listOrder = await fetchListOrderOfUser(user.id)
 
-
-  const order = passOrderToClient(listOrder)
+  const orders = passOrderToClient(listOrder)
 
     return (
         <>
-
-        <TableOrder listOrder={order}/>
-        
-        
+        <TableMagic 
+          listOrder={orders} 
+          columns={columns}
+          searchColumns={SearchColumns.description}
+          dropMenu={null}
+        />
         </>
     )
 }

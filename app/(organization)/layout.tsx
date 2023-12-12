@@ -34,7 +34,7 @@ async function RootLayout({children}: Props) {
         <>
         <ClerkProvider>
             <html lang="en">
-                <body className={`${inter.className} `}>
+                <body>
                     {children}
                 </body>
             </html>

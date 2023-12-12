@@ -12,7 +12,11 @@ const Page = async () => {
     const workPlace = userInfor._id.toString()
     return (
         <>
-        <AddEmploy workPlace={workPlace} career={Career.employeeTrans} type={type} />
+        <AddEmploy 
+            workPlace={workPlace} 
+            career={Career.employeeTrans} 
+            type={type} 
+        />
 
         </>
     )

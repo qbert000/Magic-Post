@@ -1,6 +1,7 @@
-import { Status } from "@/client/contants/enum";
+import { SearchColumns, Status } from "@/client/contants/enum";
 import { passOrderToClient } from "@/client/util/orderUtil";
-import TableOrder from "@/components/forms/TableOrder";
+import { columns } from "@/components/columns/Order";
+import TableMagic from "@/components/forms/TableMagic";
 import { GetOrderByStatus } from "@/lib/actions/user.action";
 import { currentUser } from "@clerk/nextjs";
 
@@ -14,7 +15,12 @@ const Page = async () => {
 
     return (
         <>
-        <TableOrder listOrder={orders} />
+        <TableMagic 
+            listOrder={orders} 
+            columns={columns}
+            searchColumns={SearchColumns.description}
+            dropMenu={null}
+        />
         </>
     )
 }

@@ -1,7 +1,7 @@
 'use client'
 
 
-import { link } from "@/client/util/sidebarData";
+import { link } from "@/client/util/DataType";
 import { useAuth } from "@clerk/nextjs";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -82,7 +82,7 @@ const Leftbar = ({sidebarlink, pathnameRoot} :Props) => {
                             key={sub.value}
                             className=" px-[10px] py-[4px] hover:bg-brand-500 hover:text-white cursor-pointer rounded-xl"
                           >
-                            {sub.value}
+                            {sub.label}
                           </Link>
                         );
                       })}

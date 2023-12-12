@@ -100,8 +100,9 @@ export async function fetchStatus(id:String) {
     connectData();
 
     const status = await Order.findById(id)
+    const statusDateArray = Array.from(status.statusDate);
     return {
-            date:status.statusDate,
+            date:statusDateArray,
             option: status.statusOption
         };
 }

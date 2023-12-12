@@ -30,9 +30,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { UpdateStatus, createNewOrder, fetchOrder, fetchStatus, testfetch} from "@/lib/actions/order.action";
 import {  ChevronsUpDown } from "lucide-react";
 import { useState } from "react";
-import { createNewTransformPoint } from "@/lib/actions/transformPoint.action";
-import { address } from "@/contants/client/Address";
+import { createNewTransformPoint, fetchEmployeesTransPoint } from "@/lib/actions/transformPoint.action";
 import { GetOrderByStatus, fetchListOrderOfUser, fetchUser, testUser } from "@/lib/actions/user.action";
+import { address } from "@/client/contants/Address";
 
 const languages = [
   { label: "English", value: "en" },
@@ -49,6 +49,7 @@ const languages = [
 interface Props {
   user:{
     id: string,
+    workPlace : string,
     // order: any
   }
 }
@@ -85,9 +86,12 @@ const Test =  ({user}: Props) => {
   }
   const getstatus = async (id:String) => {
     const liststatus = await fetchStatus(id);
-    console.log(liststatus.date)
+    console.log(liststatus.date[0])
     console.log(liststatus.option)
-    console.log(liststatus.date.length)
+    // console.log(liststatus.date.length)
+    liststatus.date.map((date:any) => {
+      console.log(date)
+    })
   }
   const getorder = async (id : string) => {
     // const listOrder = await fetchListOrderOfUser(id)
@@ -112,8 +116,9 @@ const Test =  ({user}: Props) => {
     })
   }
   const sole = async () => {
-    // const use = await GetOrderByStatus("user_2Xf5SQjzEPvt0s810hVuNBPzNjC", 0) 
-    // console.log(use)
+    const use = await fetchEmployeesTransPoint(user.workPlace) 
+    console.log(use)
+    console.log(user.workPlace)
   }
   const fetchUserList = async () => {
     const result = await fetchUser(user.id)
@@ -358,7 +363,7 @@ const Test =  ({user}: Props) => {
     </form>
     </Form>
     <Button onClick={()=> click("656cf94768975fe51d167d7e", "da toi")}>set status</Button>
-    <Button onClick={()=> getstatus("656b908b3226a13740c03b14")}>get status</Button>
+    <Button onClick={()=> getstatus("656cf94768975fe51d167d7e")}>get status</Button>
     <Button onClick={() => getorder("6563fca26c35f5a1c5f5d65f")}>get order by city</Button>
     <Button onClick={() => setallDistrict()}>Set all district</Button>
     <Button onClick={() => fetchUserList()}>get list order </Button>

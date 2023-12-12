@@ -19,3 +19,18 @@ export enum TypeAdd {
     new = 1,
     old = 0,
 }
+
+export enum Company {
+    managerTrans = "MaTran",
+    managerGather = "MaGather",
+    employeeGather = "EmGather",
+    employeeTrans = "EmTrans",
+    owner = "own",
+    customer = "",
+}
+
+export enum SearchColumns {
+    description = "description",
+    name = "name"
+    
+}
