@@ -10,8 +10,8 @@ interface Params {
     receiverName: string,
     phone: string,
     description: string,
-    // typeOrder: string,
-    // specailService: string,
+    typeOrder: string,
+    specailService: string,
     // addressSender: string,
     city: string,
     district: string,
@@ -28,8 +28,8 @@ export async function createNewOrder({
     phone,// so dien thoai 
     description, // ghi chu 
     // addressSender // dia chi nguoi gui
-    // typeOrder, // loai hang gui
-    // specailService,// dich vu dac biet 
+    typeOrder, // loai hang gui
+    specailService,// dich vu dac biet 
 }: Params) {
     try{
         connectData();
@@ -46,8 +46,8 @@ export async function createNewOrder({
             statusDate: createAt,
             statusOption: "don hang duoc tao",
             statusIsDone: false,
-            // typeOrder,
-            // specailService,
+            typeOrder,
+            specailService,
             // addressSender,
             
         }) 

@@ -31,9 +31,6 @@ const orderSchema = new mongoose.Schema({
     ward : {
         type : String,
     },
-    addressSender : {
-        type: String,
-    },
     phone:{type: String},
     typeOrder: {
         type: String, require: true

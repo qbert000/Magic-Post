@@ -11,6 +11,6 @@ export const OrderValidation = z.object({
     phone: z.string(),
     description: z.string(),
     // addressSender: z.string(),
-    // typeOrder:z.string(),
-    // specialService: z.string(),
+    typeOrder:z.string(),
+    specialService: z.string(),
 })
