@@ -23,16 +23,6 @@ import {
   CommandInput,
   CommandItem,
 } from "@/components/ui/command"
-import {
-    Dialog,
-    DialogClose,
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-  } from "@/components/ui/dialog"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Input } from "@/components/ui/input"
 import { OrderValidation } from "@/lib/validations/order";
@@ -46,10 +36,12 @@ import { ListDescription, ListOrderType } from "@/client/contants/OrderOption";
 import {  useRouter } from "next/navigation";
 
 
+
 interface Props {
     user : {
+        email : string,
         id : string,
-    },
+    }
     setcomplete : () => void,
 }
 
@@ -73,23 +65,19 @@ const CreateOrder = ({user, setcomplete} : Props) => {
         }
     })
     const onSubmit = async (values: z.infer<typeof OrderValidation>) => {
-        // await createNewOrder({
-        //   sender: user.id ,
-        //   receiverName: values.receiverName,
-        //   phone: values.phone,
-        //   description: values.description,
-        //   typeOrder: values.typeOrder,
-        //   specailService: values.specialService,
-        //   // addressSender: values.addressSender,
-        //   city: values.address.city,
-        //   district: values.address.district,
-        //   ward: values.address.ward,
-        // });
-
-        
+        await createNewOrder({
+          email : user.email,
+          sender : user.id,
+          receiverName: values.receiverName,
+          phone: values.phone,
+          description: values.description,
+          typeOrder: values.typeOrder,
+          specailService: values.specialService,
+          city: values.address.city,
+          district: values.address.district,
+          ward: values.address.ward,
+        });
         setcomplete()
-        
-
       };
 
     return (
@@ -99,6 +87,25 @@ const CreateOrder = ({user, setcomplete} : Props) => {
         className='flex flex-col justify-start gap-10'
         onSubmit={form.handleSubmit(onSubmit)}
         >
+        {/* //  nguoi gui */}
+        {/* <FormField
+            name='email'
+            control={form.control}
+            render={({ field }) => (
+            <FormItem className='flex w-full flex-col gap-3'>
+                <FormLabel className=''>
+                {email}
+                </FormLabel>
+                <FormControl>
+                <Input
+                    {...field}
+                    value={user? user.name : ""}
+                />
+                </FormControl>
+                <FormMessage />
+            </FormItem>
+            )}
+        /> */}
         {/* //  name rêciver */}
         <FormField
             name='receiverName'
@@ -394,15 +401,6 @@ const CreateOrder = ({user, setcomplete} : Props) => {
         >
             Hoàn Thành Gửi Đơn
         </Button>
-        {/* <Dialog>
-        <DialogTrigger asChild>
-            <Button type="submit" 
-            className='bg-primary-500'
-            >
-                Hoàn Thành Gửi Đơn
-            </Button>
-        
-        </Dialog> */}
         
         </form>
         </Form>

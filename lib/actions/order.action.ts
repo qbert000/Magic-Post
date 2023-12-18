@@ -6,7 +6,8 @@ import User from "../models/user.model";
 import connectData from "../mongoose"
 
 interface Params {
-    sender: string,
+    sender : string,
+    email : string
     receiverName: string,
     phone: string,
     description: string,
@@ -20,8 +21,9 @@ interface Params {
 
 // creat new order // done
 export async function createNewOrder({
-    sender, // sender id 
-    receiverName,   // ten nguoi gui
+    sender, // nguoi gui 
+    email, // email sender 
+    receiverName,   // ten nguoi nhan
     city, // thanh pho
     district, // huyen/ quan
     ward,// xa
@@ -43,28 +45,28 @@ export async function createNewOrder({
             ward,
             phone,
             description,
+            email ,
             statusDate: createAt,
             statusOption: "don hang duoc tao",
             statusIsDone: false,
             typeOrder,
             specailService,
-            // addressSender,
             
         }) 
 
         // add order into user
-        await User.findByIdAndUpdate({
-            _id: sender
+        await User.findOneAndUpdate({
+            email : email
         },{
             $push : {orders: newOrder._id}
         }) 
 
         //add order into transPoint
-        await TransPoint.findOneAndUpdate({
-        address: city,
-        }, {
-            $push : {order: newOrder._id}
-        })
+        // await TransPoint.findOneAndUpdate({
+        // address: city,
+        // }, {
+        //     $push : {order: newOrder._id}
+        // })
 
     } catch {
 

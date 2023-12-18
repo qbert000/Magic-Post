@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "../globals.css"
 import { fetchUser } from "@/lib/actions/user.action";
+import Provider from "../(Provider)/NextUiProvider";
 
 
 
@@ -33,11 +34,13 @@ async function RootLayout({children}: Props) {
     return (
         <>
         <ClerkProvider>
+            {/* <Provider> */}
             <html lang="en">
                 <body>
                     {children}
                 </body>
             </html>
+            {/* </Provider> */}
         </ClerkProvider>
         </>
     )

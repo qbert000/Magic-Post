@@ -14,6 +14,7 @@ async function Page () {
         firstName: userInfor ? userInfor.firstName : user.firstName,
         lastName: userInfor ? userInfor.lastName : user.lastName,
         image: userInfor ? userInfor.image: user.imageUrl,
+        email :  user.emailAddresses[0].emailAddress,
     }
 
   

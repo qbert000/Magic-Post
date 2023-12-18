@@ -7,6 +7,7 @@ import { Children } from "react";
 import { LeftbarLinkCustomer, RightbarLinkCustomer } from "@/client/contants/sidebarlink";
 import Leftbar from "@/components/Shared/Leftbar";
 import Rightbar from "@/components/Shared/Rightbar";
+import Provider from "../(Provider)/NextUiProvider";
 
 
 
@@ -27,7 +28,7 @@ function RootLayout({children}: Props) {
     return (
         <>
         <ClerkProvider>
-            <html lang="en">
+            <html lang="en"><Provider>
                 <body className={`${inter.className} `}>
                     <Topbar/>
                     <main className="flex flex-row">
@@ -39,7 +40,7 @@ function RootLayout({children}: Props) {
                         </section>
                         <Rightbar sidebarlink={RightbarLinkCustomer} pathnameRoot={pathnameRoot}/>
                     </main>
-                </body>
+                </body></Provider>
             </html>
         </ClerkProvider>
         </>

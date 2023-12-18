@@ -207,10 +207,12 @@ export const RightbarLinkEmployeeTrans = [
     {
         label: "Tạo Đơn",
         value: "addOrder",
-        link: "",
+        link: "/new",
     },
     {
-        label: "Thống Kê"
+        label: "Thống Kê",
+        value : "statictis",
+        link : "/statistical"
     }
 ]
   

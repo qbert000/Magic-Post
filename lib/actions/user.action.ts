@@ -5,6 +5,7 @@ import User from "../models/user.model";
 import connectData from "../mongoose"
 import Order from "../models/order.model";
 import { Status } from "@/client/contants/enum";
+import { PassOrderToInventory } from "@/client/util/orderUtil";
 
 interface Params {
     id: string,
@@ -12,11 +13,12 @@ interface Params {
     lastName: string,
     image: string,
     path: string;
+    email : string,
   }
 
 // tao va sua doi user (khong dung nhieu dau) //done
 export async function updateUser({
-    id, firstName, lastName, image, path
+    id, firstName, lastName, image, path, email,
   }: Params): Promise<void> {
     try {
       connectData();
@@ -28,6 +30,7 @@ export async function updateUser({
           lastName,
           image,
           path,
+          email,
         },
         { upsert: true }
       );
@@ -51,6 +54,21 @@ export async function fetchUser(userId:string) {
         // throw new Error('failed to fetch user')
     }
 }
+
+// tim uer bang email tra ve name
+export async function getUserByEmail (email : string) {
+  try{
+    connectData()
+    const user = await User.findOne({email: email})
+    const id = (user as any)._id.toString()
+    return {
+      id : id,
+      email : user.email,
+    }
+  } catch {
+
+  }
+}
 // lay ra danh sach order cua nguoi dung  //done
 export async function fetchListOrderOfUser(id:string)  {
   try {
@@ -58,7 +76,7 @@ export async function fetchListOrderOfUser(id:string)  {
     const user = await User.findOne({id :id}).populate({
       path: 'orders',
       model: Order
-    }).lean()
+    }).sort({ statusDate: 1 }).lean()
 
     const orders = (user as any).orders
     
@@ -67,14 +85,39 @@ export async function fetchListOrderOfUser(id:string)  {
   }
 }
 
-//lay danh sach hang cua nguoi dung theo trang thai //done
+// lay order dang cho xet duyet cua nguoi dung
+export async function GetOrderToInventory(id : string) {
+  try {
+    connectData()
+    const user = await User.findOne({_id : id}).populate([{
+      path:'orders',
+      model: Order,
+      populate : {
+        path : "sender",
+        model: User,
+      }
+    }]
+    ).lean()
+    const orders = (user as any).orders
+    const newOrder = orders.filter((order:any) => order.statusDate.length === 1)
+
+    const orderOver = PassOrderToInventory(newOrder)
+    
+    return orderOver
+
+  }catch {
+
+  }
+}
+
+//lay danh sach order cua nguoi dung theo trang thai //done
 export async function GetOrderByStatus(id:string, status: number)  {
   try {
     connectData();
     const user = await User.findOne({id :id}).populate({
       path: 'orders',
       model: Order
-    }).lean()
+    }).sort({ statusDate: 1 }).lean()
     const orders = (user as any).orders
     if( status === Status.transporting) {
       const newOrder = orders.filter((order:any) => order.statusDate.length >= status && order.statusDate.length < Status.payNot)

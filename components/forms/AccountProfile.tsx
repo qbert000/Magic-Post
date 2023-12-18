@@ -20,6 +20,7 @@ import * as z from "zod";
 import Image from "next/image";
 import { isBase64Image } from "@/lib/utils";
 import { updateUser } from "@/lib/actions/user.action";
+import { Email } from "@clerk/nextjs/server";
 
 interface Props {
   user : {
@@ -28,6 +29,7 @@ interface Props {
     firstName: string,
     lastName: string,
     image: string,
+    email: string,
   }
   btnTitle: string,
 }
@@ -43,8 +45,9 @@ const AccountProfile =  ({user, btnTitle}:Props) => {
     resolver: zodResolver(UserValidation),
     defaultValues: {
       image: user?.image || "",
-      firstName:  " ",
-      lastName:  " ",
+      firstName:  user?.firstName || "",
+      lastName:  user?.lastName || "",
+      email: user?.email || "",
     },
   });
 
@@ -89,6 +92,7 @@ const AccountProfile =  ({user, btnTitle}:Props) => {
       lastName: values.lastName,
       image: values.image,
       path: pathname,
+      email : user.email
     });
 
     if (pathname === "/profile/edit") {
@@ -96,6 +100,7 @@ const AccountProfile =  ({user, btnTitle}:Props) => {
     } else {
       router.push("/");
     }
+
   };
 
 
@@ -184,6 +189,8 @@ const AccountProfile =  ({user, btnTitle}:Props) => {
             </FormItem>
           )}
         />
+        <FormLabel>Email</FormLabel>
+        <Input value={user.email} />
       
         <Button type="submit" className='bg-primary-500'>
           {btnTitle}

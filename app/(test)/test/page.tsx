@@ -1,4 +1,5 @@
 import Test from '@/components/Shared/Test'
+import Test2 from '@/components/Shared/Test2'
 import { fetchUser } from '@/lib/actions/user.action'
 import { UserButton, currentUser } from '@clerk/nextjs'
 import Image from 'next/image'
@@ -17,7 +18,7 @@ export default async function Home() {
 
   const userdata = {
     id: userInfor._id.toString(),
-    workPlace : userInfor.workPlace.toString()
+    // workPlace : userInfor.workPlace.toString()
     // order: userInfor
   }
   console.log(userInfor)
@@ -34,7 +35,7 @@ export default async function Home() {
       </div>
       
       <section className='mt-9 bg-dark-2 p-10'>
-        <Test user= {userdata}/>
+        <Test2/>
       </section>
     </div>
   )

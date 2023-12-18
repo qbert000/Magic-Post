@@ -1,5 +1,4 @@
 import mongoose, { mongo } from "mongoose";
-import { string } from "zod";
 
 const orderSchema = new mongoose.Schema({
     id: {type: String, require: true},
@@ -17,6 +16,9 @@ const orderSchema = new mongoose.Schema({
     sender: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
+    },
+    email: {
+        type : String,
     },
     receiverName: {
         type: String,

@@ -7,10 +7,9 @@ export const OrderValidation = z.object({
         district:z.string(),
         ward: z.string(),
     }),
-    // clearly: z.string(),
     phone: z.string(),
     description: z.string(),
-    // addressSender: z.string(),
     typeOrder:z.string(),
     specialService: z.string(),
+    // email : z.string(),
 })

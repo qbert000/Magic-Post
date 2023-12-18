@@ -79,7 +79,7 @@ export const orderWork: ColumnDef<order>[] = [
               </div>
           )
       }
-    }, { 
+    }, { // cot ngay gui 
         accessorKey: orderTableValue.statusDate,
         header : () => {
             return (

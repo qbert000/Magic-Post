@@ -25,7 +25,7 @@ export const columns: ColumnDef<order>[] = [
           // phan dau
         return (
           <div>
-            {orderTableTitle.address}
+            {orderTableTitle.description}
           </div>
         )
       },

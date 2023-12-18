@@ -10,13 +10,18 @@ const Page = async () => {
 
     const userInfor = await fetchUser(user.id)
 
-    const userdata = {
-        id : userInfor._id.toString()
+    
+
+    const email = userInfor.email
+
+    const userData = {
+        email : userInfor.email,
+        id : userInfor._id,
     }
 
     return (
         <>
-        <CreateBox user={userdata} />
+        <CreateBox user={userData} findUser={false}/>
         
         </>
     )

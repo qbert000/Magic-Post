@@ -23,16 +23,7 @@ export async function fecthEmployeeByName(number = 10,name:string) {
     .limit(number)
 }
 
-// them moi nhan vien
-export async function CreateNewEmployee(id:string) {
-    connectData()
-    await User.findById(id, {
-        $set :{
-            isPostion : true,
-            career: "employeeTransPoint"
-        }
-    })
-}
+
 
 // lay order tu list
 export async function EmployTransGetOrder(_id : string ) {
@@ -70,6 +61,7 @@ export async function fetchEmployeesTransPoint (_id : string) {
     }
 }
 
+// quan ly lay don hang trong diem giao dich
 export async function ManagerTransGetOrder (_id: string) {
     try {
         connectData();
@@ -85,4 +77,18 @@ export async function ManagerTransGetOrder (_id: string) {
     }catch {
 
     } 
+}
+
+
+export async function AddOrderToTranPoint(order : string, address: string) {
+    try {
+        connectData()
+        await TransPoint.findOneAndUpdate({_id: address}, {
+            $push : {
+                order: order,
+            }
+        })
+    }catch {
+
+    }
 }

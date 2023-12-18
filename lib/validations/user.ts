@@ -11,4 +11,9 @@ export const UserValidation = z.object({
     firstName: z.string().min(2).max(30),
     lastName: z.string().min(2).max(20),
     image:z.string().url(),
+    email:z.string(),
+})
+
+export const UserFind = z.object({
+    name : z.string()
 })

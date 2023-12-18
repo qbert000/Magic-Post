@@ -11,6 +11,10 @@ const userSchema = new mongoose.Schema({
             ref: "Order"
         }
     ],
+    email : {
+        type: String,
+        require : true
+    },
     isPostion: {type: Boolean, default: false},
     career : { type: String, default: '' },
     workPlace : {
