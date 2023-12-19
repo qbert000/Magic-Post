@@ -8,11 +8,9 @@ const orderSchema = new mongoose.Schema({
     statusOption: [
         {type: String, require: true}
     ],
-    statusIsDone :[
-        {
-            type:Boolean, require: true
-        }
-    ],
+    statusIsDone :{
+        type : Number, require : true,
+    },
     sender: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"

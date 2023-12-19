@@ -1,7 +1,6 @@
 import { status } from "@/client/contants/DropMenuTitle";
 import { SearchColumns } from "@/client/contants/enum";
 import { passOrderToClient } from "@/client/util/orderUtil";
-import { columns } from "@/components/columns/Order";
 import { orderWork } from "@/components/columns/OrderWork";
 import TableMagic from "@/components/forms/TableMagic";
 import { ManagerTransGetOrder } from "@/lib/actions/transformPoint.action";
@@ -27,6 +26,7 @@ const Page = async () => {
             columns={orderWork}
             searchColumns={SearchColumns.description}
             dropMenu={status}
+            selectBox={null}
         />
         </>
     )

@@ -15,10 +15,11 @@ import {
 } from "@tanstack/react-table"
 import { orderTableTitle, orderTableValue } from "@/client/contants/ColumnsTitle"
 import { order } from "@/client/util/ColumnsType"
+import { Checkbox } from "../ui/checkbox"
 
 
 
-export const columns: ColumnDef<order>[] = [
+export const OrderEmployee: ColumnDef<order>[] = [
     { // cot thong tin 
       accessorKey: orderTableValue.description,
       header: ({ column }) => {
@@ -109,6 +110,28 @@ export const columns: ColumnDef<order>[] = [
           )
       },
     },
+    {  // cot checkbox 
+        id: "select",
+        header: ({ table }) => (
+          <Checkbox
+            checked={
+              table.getIsAllPageRowsSelected() ||
+              (table.getIsSomePageRowsSelected() && "indeterminate")
+            }
+            onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+            aria-label="Select all"
+          />
+        ),
+        cell: ({ row }) => (
+          <Checkbox
+            checked={row.getIsSelected()}
+            onCheckedChange={(value) => row.toggleSelected(!!value)}
+            aria-label="Select row"
+          />
+        ),
+        enableSorting: false,
+        enableHiding: false,
+      },
     
   ]
   

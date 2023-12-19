@@ -1,4 +1,5 @@
 import { Date } from "mongoose";
+import { Status } from "../contants/enum";
 
 export interface subLink {
     label: string,
@@ -18,5 +19,12 @@ export interface link {
 export interface MenuDropBox {
   value : string,
   label : string,
+}
+
+export interface SelectStatusBox {
+  title : string,
+  parentPoint : string | null,
+  workPlace : string,
+  status : Status,
 }
   

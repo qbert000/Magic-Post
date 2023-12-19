@@ -23,6 +23,7 @@ const Page = async () => {
           columns={columns}
           searchColumns={SearchColumns.description}
           dropMenu={null}
+          selectBox={null}
         />
         </>
     )

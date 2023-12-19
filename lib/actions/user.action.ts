@@ -99,7 +99,7 @@ export async function GetOrderToInventory(id : string) {
     }]
     ).lean()
     const orders = (user as any).orders
-    const newOrder = orders.filter((order:any) => order.statusDate.length === 1)
+    const newOrder = orders.filter((order:any) => order.statusIsDone === Status.wait)
 
     const orderOver = PassOrderToInventory(newOrder)
     
@@ -111,7 +111,9 @@ export async function GetOrderToInventory(id : string) {
 }
 
 //lay danh sach order cua nguoi dung theo trang thai //done
-export async function GetOrderByStatus(id:string, status: number)  {
+export async function GetOrderByStatus(
+  id:string, 
+  status: Status)  {
   try {
     connectData();
     const user = await User.findOne({id :id}).populate({
@@ -119,13 +121,13 @@ export async function GetOrderByStatus(id:string, status: number)  {
       model: Order
     }).sort({ statusDate: 1 }).lean()
     const orders = (user as any).orders
+
     if( status === Status.transporting) {
-      const newOrder = orders.filter((order:any) => order.statusDate.length >= status && order.statusDate.length < Status.payNot)
+      const newOrder = orders.filter((order:any) => order.statusIsDone  < Status.done && order.statusIsDone > Status.inventoryted)
       return newOrder
     }
-    const newOrder = orders.filter((order:any) => order.statusDate.length === status)
-    
-    
+
+    const newOrder = orders.filter((order:any) => order.statusIsDone === status)
     return newOrder // tra ve mot array list order theo status
   } catch {
   }

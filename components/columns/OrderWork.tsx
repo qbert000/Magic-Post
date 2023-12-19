@@ -2,29 +2,10 @@
 
 import * as React from "react"
 import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectLabel,
-    SelectTrigger,
-    SelectValue,
-  } from "@/components/ui/select"
-import {
   ColumnDef,
-  ColumnFiltersState,
-  SortingState,
-  VisibilityState,
-  flexRender,
-  getCoreRowModel,
-  getFilteredRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
-  useReactTable,
+  
 } from "@tanstack/react-table"
 import { orderTableTitle, orderTableValue } from "@/client/contants/ColumnsTitle"
-import { Button } from "../ui/button"
-import { MoreHorizontal } from "lucide-react"
 import { order } from "@/client/util/ColumnsType"
 
 
@@ -131,7 +112,7 @@ export const orderWork: ColumnDef<order>[] = [
               </div>
           )
       },
-    }, {// trang thai
+    }, {// cot trang thai
         accessorKey : orderTableValue.status,
         header : () => {
             return (

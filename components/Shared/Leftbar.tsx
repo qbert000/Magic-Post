@@ -80,7 +80,8 @@ const Leftbar = ({sidebarlink, pathnameRoot} :Props) => {
                           <Link
                             href={`${pathnameRoot}${sub.link}`}
                             key={sub.value}
-                            className=" px-[10px] py-[4px] hover:bg-brand-500 hover:text-white cursor-pointer rounded-xl"
+                            className={`${isActive && "link_active"} flex w-full items-center space-x-4 rounded-xl px-3 text-brand-500 text-heading4-medium py-2 text-left 
+                            link_focus group`}
                           >
                             {sub.label}
                           </Link>

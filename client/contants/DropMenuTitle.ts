@@ -22,3 +22,18 @@ export const status: MenuDropBox[] = [
         label: "hoan thanh"
     }
 ]
+
+export const AddressCity : MenuDropBox[] = [
+    {
+        value : " ",
+        label: "Tất Cả",
+    },
+    {
+        value: "Hadong",
+        label: "Hà Đông",
+    },
+    {
+        value : "Caugiay",
+        label: "Cầu Giấy",
+    }
+]

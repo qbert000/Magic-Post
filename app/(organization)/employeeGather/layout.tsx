@@ -1,7 +1,8 @@
+import { LeftbarLinkEmployeeGather, RightbarLinkNormal } from "@/client/contants/sidebarlink";
 import Leftbar from "@/components/Shared/Leftbar";
 import LeftbarManager from "@/components/Shared/Leftbar";
+import Rightbar from "@/components/Shared/Rightbar";
 import Topbar from "@/components/Shared/Topbar";
-import { LeftbarLinkEmployeeGather } from "@/contants/client/sidebarlink";
 import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -36,7 +37,7 @@ function RootLayout({children}: Props) {
                                 {children}
                             </div>
                         </section>
-                        {/* <RightbarCustomer/> */}
+                        <Rightbar sidebarlink={RightbarLinkNormal} pathnameRoot={pathnameroot}/>
                     </main>
                 </body>
             </html>

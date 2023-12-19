@@ -1,5 +1,6 @@
 'use server'
 
+import { Status } from "@/client/contants/enum";
 import Order from "../models/order.model";
 import TransPoint from "../models/transPoint.model";
 import User from "../models/user.model";
@@ -48,10 +49,9 @@ export async function createNewOrder({
             email ,
             statusDate: createAt,
             statusOption: "don hang duoc tao",
-            statusIsDone: false,
+            statusIsDone: Status.wait,
             typeOrder,
             specailService,
-            
         }) 
 
         // add order into user
@@ -61,17 +61,9 @@ export async function createNewOrder({
             $push : {orders: newOrder._id}
         }) 
 
-        //add order into transPoint
-        // await TransPoint.findOneAndUpdate({
-        // address: city,
-        // }, {
-        //     $push : {order: newOrder._id}
-        // })
-
     } catch {
 
     }
-    
 }
 
 
@@ -90,10 +82,18 @@ export async function UpdateStatus(id:String, des:String)  {
         $push: {
             statusDate: date,
             statusOption: des,
-            statusIsDone:{
-                $each : [true],
-                $position: -1,
-            }
+        }
+    })
+}
+
+// update order to transs or gather over 
+export async function UpdatePointDone(
+    id: string,
+    status : Status) {
+    connectData()
+    await Order.findByIdAndUpdate({_id:id},{
+        $set : {
+            statusIsDone : status,
         }
     })
 }
@@ -110,14 +110,7 @@ export async function fetchStatus(id:String) {
 }
 
 
-//find all order //done
-export async function finall() {
-    connectData();
-    const order = await Order.find({_id :"656cf94768975fe51d167d7e"})
 
-
-    return order
-}
 
 
 export async function testfetch () {

@@ -19,7 +19,7 @@ const PaginationPage = ({data, workPlace} : Props) => {
   const changePage = (page : number) => {
     setI(page-1)
     setPage(data[page-1])
-    console.log(done)
+    console.log(page)
     
   }
 

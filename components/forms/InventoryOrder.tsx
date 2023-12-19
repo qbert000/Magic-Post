@@ -9,8 +9,9 @@ import { PostValidation } from "@/lib/validations/post";
 import { Divide } from "lucide-react";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { Button } from "../ui/button";
-import { UpdateStatus } from "@/lib/actions/order.action";
+import { UpdatePointDone, UpdateStatus } from "@/lib/actions/order.action";
 import { AddOrderToTranPoint } from "@/lib/actions/transformPoint.action";
+import { Status } from "@/client/contants/enum";
 
 interface Props {
     fullname : string,
@@ -72,13 +73,11 @@ const InventoryOrder = ({
   });
 
   const onSubmit = async (values: z.infer<typeof PostValidation>) => {
-    // console.log(workPlace)
     await UpdateStatus(id, "Đơn hàng được xác nhận thành công")
+    await UpdatePointDone(id, Status.inventoryted)
     await AddOrderToTranPoint(id, workPlace)
 
     pageDone(page)
-
-
   };
 
   const date = new Date()

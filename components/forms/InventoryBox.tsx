@@ -1,8 +1,9 @@
 'use client'
 import { useState } from "react"
 import FindUser from "./FindUser"
-import { GetOrderToInventory } from "@/lib/actions/user.action"
+import { GetOrderByStatus, GetOrderToInventory } from "@/lib/actions/user.action"
 import PaginationPage from "../Shared/Pagination"
+import { Status } from "@/client/contants/enum"
 
 interface user {
     id : string,

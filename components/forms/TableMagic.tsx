@@ -14,7 +14,6 @@ import {
   useReactTable,
 } from "@tanstack/react-table"
 
-import { Input } from "@/components/ui/input"
 import {
   Table,
   TableBody,
@@ -23,10 +22,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import Search from "../cards/Search"
-import { SearchColumns } from "@/client/contants/enum"
+import { SearchColumns, Status } from "@/client/contants/enum"
 import DropBox from "../cards/DropBox"
-import { MenuDropBox } from "@/client/util/DataType"
+import { MenuDropBox, SelectStatusBox } from "@/client/util/DataType"
+import Search from "../cards/search"
+import SelectBox from "../cards/SelectBox"
 
 
 
@@ -35,10 +35,11 @@ interface Props {
     columns : ColumnDef<any>[],
     searchColumns : SearchColumns,
     dropMenu : MenuDropBox[] | null,
+    selectBox : SelectStatusBox| null ,
 }
   
 
-const TableMagic =  ({listOrder, columns, searchColumns, dropMenu} : Props) => {
+const TableMagic =  ({listOrder, columns, searchColumns, dropMenu, selectBox} : Props) => {
     const [sorting, setSorting] = React.useState<SortingState>([])
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
       []
@@ -72,11 +73,12 @@ const TableMagic =  ({listOrder, columns, searchColumns, dropMenu} : Props) => {
       <div className="flex items-center py-4">
         {/* thanh search để search theo searchColum là cái cột cần tìm*/}
         {searchColumns !== null &&
-        <Search 
+        <Search
           table={table} 
           searchColumns={searchColumns}
         />}
       </div>
+
       <div className="flex items-center py-4">
         { // thanh drop de duyet cac phan tu
         dropMenu !== null && 
@@ -140,9 +142,17 @@ const TableMagic =  ({listOrder, columns, searchColumns, dropMenu} : Props) => {
         </Table>
       </div>
       
+
+      {selectBox != null &&
+        <SelectBox 
+          table={table} 
+          select={selectBox}
+        />
+      }
+
     </div>
         
-        </>
+    </>
     )
 }
 

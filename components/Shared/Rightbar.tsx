@@ -50,6 +50,7 @@ const Rightbar = ({sidebarlink, pathnameRoot} : Props) => {
                 selected={date}
                 onSelect={setDate}
                 
+                
                 className=" text-pink-1"
                 classNames={{
                     day_selected:

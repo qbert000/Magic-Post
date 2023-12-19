@@ -9,7 +9,7 @@ const Page = async () => {
     const user = await currentUser()
     if(!user) return
 
-    const listOrder = await GetOrderByStatus(user.id, Status.wait)
+    const listOrder = await GetOrderByStatus(user.id, Status.inventoryted)
 
     const orders = passOrderToClient(listOrder)
     return (
@@ -19,6 +19,7 @@ const Page = async () => {
             columns={columns}
             searchColumns={SearchColumns.description}
             dropMenu={null}
+            selectBox={null}
         />
         </>
     )
