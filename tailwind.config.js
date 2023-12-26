@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-const {nextui} = require("@nextui-org/react");
+const { nextui } = require("@nextui-org/react");
 
 module.exports = {
   darkMode: ["class"],
@@ -9,7 +9,6 @@ module.exports = {
     "./app/**/*.{ts,tsx}",
     "./src/**/*.{ts,tsx}",
     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
-
   ],
   theme: {
     container: {
@@ -179,8 +178,8 @@ module.exports = {
       colors: {
         "primary-500": "#877EFF",
         "secondary-500": "#FFB620",
-        "brand-500": "#D67B9C",
-        blue: "#0095F6",
+        "brand-500": "#0095F6",
+        // blue: "#0095F6",
         "logout-btn": "#FF5A5A",
         "navbar-menu": "rgba(16, 16, 18, 0.6)",
         "dark-1": "#000000",
@@ -193,12 +192,12 @@ module.exports = {
         "light-4": "#5C5C7B",
         "gray-1": "#697C89",
         "fun-1": "#eab308",
-        "fun-2" : "#f87171",
-        "pink-1": "#D67B9C",
+        "fun-2": "#f87171",
+        "pink-1": "#0095F6",
         "pink-2": "#FAD2E0",
-        "pink-3" :"#FFC2C7",
-        "blue-1" : "#00b4d8",
-        "grey-1" : "e5e5e5",
+        "pink-3": "#FFC2C7",
+        "blue-1": "#00b4d8",
+        "grey-1": "e5e5e5",
         glassmorphism: "rgba(16, 16, 18, 0.60)",
       },
       boxShadow: {
@@ -224,8 +223,5 @@ module.exports = {
       },
     },
   },
-  plugins: [
-    require("tailwindcss-animate"),
-    nextui(),
-  ],
+  plugins: [require("tailwindcss-animate"), nextui()],
 };
