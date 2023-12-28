@@ -180,7 +180,6 @@ module.exports = {
         "primary-500": "#877EFF",
         "secondary-500": "#FFB620",
         "brand-500": "#D67B9C",
-        blue: "#0095F6",
         "logout-btn": "#FF5A5A",
         "navbar-menu": "rgba(16, 16, 18, 0.6)",
         "dark-1": "#000000",
@@ -198,8 +197,16 @@ module.exports = {
         "pink-2": "#FAD2E0",
         "pink-3" :"#FFC2C7",
         "blue-1" : "#00b4d8",
-        "grey-1" : "e5e5e5",
+        "hex" : "#d8d8d8",
+        "green" : "#19c964",
         glassmorphism: "rgba(16, 16, 18, 0.60)",
+      },
+      spacing: {
+        '128': '32rem',
+        '11' : "12px",
+        '12' : "48px",
+        'box' : "48px",
+        'card' : "100px"
       },
       boxShadow: {
         "count-badge": "0px 0px 6px 2px rgba(219, 188, 159, 0.30)",
