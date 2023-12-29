@@ -1,6 +1,5 @@
 import CreateBox from '@/components/forms/CreateBox';
 import CreateOrder from '@/components/forms/CreateOrder';
-import Post from '@/components/forms/Post';
 import { fetchUser } from '@/lib/actions/user.action';
 import { currentUser } from '@clerk/nextjs';
 const Page = async () => {
