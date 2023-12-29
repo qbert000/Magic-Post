@@ -28,7 +28,10 @@ const nextConfig = {
           hostname: "placehold.co",
         },
       ],
+      domains: ["www.gravatar.com"],
+      formats: ["image/avif", "image/webp"],
     },
+    swcMinify: false,
   };
   
   module.exports = nextConfig;
