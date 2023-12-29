@@ -14,13 +14,15 @@ const Page = async () => {
 
     const workPlace = userInfor._id.toString()
     const career = Career.employeeGather
+    const active = userInfor.active
+
     
     return (
         <>
         <div className="w-full min-h-5 text-7xl font-bold flex justify-center">
             Tuyển Nhân Viên Vào Điểm Tập Kết : {gatherpoint.address}
         </div>
-        <AddEmployBox user={"0"} workPlace={workPlace} career={career}/>
+        <AddEmployBox  workPlace={workPlace} career={career} active={active} type={null}/>
         
 
         </>
