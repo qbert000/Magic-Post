@@ -11,6 +11,9 @@ const orderSchema = new mongoose.Schema({
     statusIsDone :{
         type : Number, require : true,
     },
+    statusPoint : [
+        {type : String }
+    ],
     sender: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"

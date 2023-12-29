@@ -21,9 +21,9 @@ interface Props {
 
 const PlaceTitle = (searchColumns : string) => {
   if (searchColumns === "description") {
-    return "Thong tin"
+    return "Thông Tin"
   } else if (searchColumns === "name") {
-    return "ten"
+    return "Họ Tên"
   }
   return ".."
 }
@@ -32,14 +32,19 @@ const Search = ({table, searchColumns }: Props) => {
   const placehol = PlaceTitle(searchColumns)
     return (
         <>
+        <div className="flex flex-col">
+        <div className="ml-3">
+          {"Tìm "+ placehol}
+        </div>
         <Input
           placeholder= {placehol}
           // value={(table.getColumn(searchColumns)?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
             table.getColumn(searchColumns)?.setFilterValue(event.target.value)
           }
-          className="max-w-sm"
+          className="max-w-sm mt-1"
         />
+        </div>
         </>
     )
 }

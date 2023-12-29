@@ -12,12 +12,14 @@ const Page = async () => {
     if(!user) return 
     const userInfor = await fetchUser(user.id)
 
-    // lay order tho status
-    const listorder = await GatherPointGetOrderByStatus(userInfor.workPlace, Status.gatherPassGatherCheck)
-    if(!listorder) return 
-
     const gatherpoint = await GetGatherPoint(userInfor.workPlace)
     if(!gatherpoint) return 
+
+    // lay order tho status
+    const listorder = await GatherPointGetOrderByStatus(userInfor.workPlace, Status.gatherPassGatherCheck, gatherpoint.address)
+    if(!listorder) return 
+
+
 
     const selectBox : SelectStatusBox = {
         title : "Đã nhận hàng về" + gatherpoint.address,

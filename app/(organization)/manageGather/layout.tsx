@@ -1,4 +1,4 @@
-import { PathRoot } from "@/client/contants/enum";
+import { Active, Career, PathRoot } from "@/client/contants/enum";
 import { LeftbarLinkManager, RightbarLinkNormal } from "@/client/contants/sidebarlink";
 import Leftbar from "@/components/Shared/Leftbar";
 import LeftbarManager from "@/components/Shared/Leftbar";
@@ -8,7 +8,7 @@ import { fetchUser } from "@/lib/actions/user.action";
 import { ClerkProvider, currentUser } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { usePathname } from "next/navigation";
+import { redirect, usePathname } from "next/navigation";
 // import "@/a"
 
 
@@ -26,10 +26,10 @@ const inter = Inter({subsets:["latin"]})
 
 
 async function RootLayout({children}: Props) {
-    const pathnameroot = '/manageGather'
     const user = await currentUser()
-    if(!user) return
+    if(!user) return 
     const userInfor = await fetchUser(user.id)
+    if(userInfor.career !== Career.magegerGather) redirect("/")
     const career = userInfor.career
     return (
         <>
@@ -40,7 +40,13 @@ async function RootLayout({children}: Props) {
                         <Leftbar sidebarlink={LeftbarLinkManager} pathnameRoot={PathRoot.ManangerGather}/>
                         <section className='main-container'>
                             <div className='w-full '>
-                                {children}
+                            {
+                                userInfor.active === Active.lock ? 
+                                <div className="w-full mt-10 ">Bạn đang bị khóa truy cập</div>
+                                : 
+                                <>{children}
+                                </>
+                            }
                             </div>
                         </section>
                         <Rightbar sidebarlink={RightbarLinkNormal} pathnameRoot={PathRoot.ManangerGather}/>

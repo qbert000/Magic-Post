@@ -27,6 +27,12 @@ export enum Career {
     customer = ""
 }
 
+export enum Active {
+    notadd = "notadd",
+    lock = "lock",
+    normal = "normal",
+}
+
 export enum TypeAdd {
     new = 1,
     old = 0,
@@ -40,6 +46,10 @@ export enum PathRoot {
     Owner = "/owner",
     user = "",
 
+}
+
+export enum ReSize {
+    pageSize = 5 ,
 }
 
 

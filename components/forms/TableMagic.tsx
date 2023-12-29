@@ -33,7 +33,7 @@ import SelectBox from "../cards/SelectBox"
 interface Props {
     listOrder: any[],
     columns : ColumnDef<any>[],
-    searchColumns : SearchColumns,
+    searchColumns : SearchColumns | null,
     dropMenu : MenuDropBox[] | null,
     selectBox : SelectStatusBox| null ,
 }

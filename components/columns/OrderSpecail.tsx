@@ -84,7 +84,7 @@ export const OrderSpecail: ColumnDef<order>[] = [
           )
       }
     }, { // cot ngay gui 
-        accessorKey: orderTableValue.statusDate,
+        accessorKey: "statusDate",
         header : () => {
             return (
                 <div>
@@ -93,7 +93,7 @@ export const OrderSpecail: ColumnDef<order>[] = [
             )
         },
         cell : ({row}) => {
-            const formattedDate : Date = row.getValue(orderTableValue.statusDate);
+            const formattedDate : Date = row.getValue("statusDate");
             const s = formattedDate ? formattedDate.toLocaleDateString() : "";
             return (
                 <div>
@@ -117,13 +117,12 @@ export const OrderSpecail: ColumnDef<order>[] = [
               </div>
           )
       }
-    },
-    { // cot nguoi nhan
+    },{ // cot nguoi nhan
       accessorKey: orderTableValue.receiverName,
       header: () => {
           // phan dau 
           return (
-              <div className="text-right">
+              <div className="text-center">
                   {orderTableTitle.recieverName}
               </div>
           )
@@ -131,7 +130,7 @@ export const OrderSpecail: ColumnDef<order>[] = [
       cell: ({ row }) => {
           // cac cot phia duoi
           return (
-              <div className="text-right ">
+              <div className="text-left">
                   {row.getValue(orderTableValue.receiverName)}
               </div>
           )
@@ -154,8 +153,7 @@ export const OrderSpecail: ColumnDef<order>[] = [
                 </>
             )
         }
-    },
-    {  // cot checkbox 
+    },{  // cot checkbox 
         id: "select",
         header: ({ table }) => (
           <Checkbox
@@ -186,7 +184,7 @@ export const OrderSpecail: ColumnDef<order>[] = [
           const updatecancel = async (value : boolean) => {
             if(value === false) {
                 setCancel(false)
-            }
+            } 
             setCancel(true)
             if(paynot === true) {
                 setPaynot(false)
@@ -210,7 +208,7 @@ export const OrderSpecail: ColumnDef<order>[] = [
           }
 
           const forget = async () => {
-            await UpdateStatus(row.original.id, "xoa")
+            await UpdateStatus(row.original.id, "xóa")
             await UpdatePointDone(row.original.id, Status.forget)
           }
      
@@ -218,7 +216,7 @@ export const OrderSpecail: ColumnDef<order>[] = [
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="h-8 w-8 p-0">
-                  <span className="sr-only">Open menu</span>
+                  <span className="sr-only">Trạng Thái</span>
                   <MoreHorizontal className="h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>

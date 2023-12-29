@@ -34,7 +34,7 @@ const Topbar = ({pathname, career} : Props) =>  {
 
       <div className='flex items-center gap-1'>
         <div className="mx-2">
-          {career !== "" && 
+          {career !== "" && // xu ly truong hop nguoi dung khong phai nhan vien
             <Switch career={career} pathname={pathname}></Switch>
           }
         </div>
@@ -42,7 +42,7 @@ const Topbar = ({pathname, career} : Props) =>  {
         
         <div className='block '>
             <UserButton 
-                afterSignOutUrl='/'
+                afterSignOutUrl='/sign-in'
                 
             />
         </div>

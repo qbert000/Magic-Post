@@ -57,7 +57,7 @@ export const OrderEmployee: ColumnDef<order>[] = [
           )
       }
     }, { // cot ngay gui 
-        accessorKey: orderTableValue.statusDate,
+        accessorKey: "statusDate",
         header : () => {
             return (
                 <div>
@@ -66,7 +66,7 @@ export const OrderEmployee: ColumnDef<order>[] = [
             )
         },
         cell : ({row}) => {
-            const formattedDate : Date = row.getValue(orderTableValue.statusDate);
+            const formattedDate : Date = row.getValue("statusDate");
             const s = formattedDate ? formattedDate.toLocaleDateString() : "";
             return (
                 <div>
@@ -90,8 +90,7 @@ export const OrderEmployee: ColumnDef<order>[] = [
               </div>
           )
       }
-    },
-    { // cot nguoi nhan
+    },{ // cot nguoi nhan
       accessorKey: orderTableValue.receiverName,
       header: () => {
           // phan dau 
@@ -109,8 +108,7 @@ export const OrderEmployee: ColumnDef<order>[] = [
               </div>
           )
       },
-    },
-    {  // cot checkbox 
+    },{  // cot checkbox 
         id: "select",
         header: ({ table }) => (
           <Checkbox

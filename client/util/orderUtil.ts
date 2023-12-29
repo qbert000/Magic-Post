@@ -1,9 +1,10 @@
 import { Date } from "mongoose"
-import { order } from "./ColumnsType";
+import { order, orderManager, orderOwner } from "./ColumnsType";
 
-export const passOrderToClient = (listOrder: any[])  => {
+// cho quan ly
+export const passOrderToClient = (listOrder: any[], address : string)  => {
   if (!Array.isArray(listOrder)) return [];
-  const order = listOrder.map((
+  const order : orderManager[]= listOrder.map((
       {
         _id,
         description,
@@ -13,6 +14,7 @@ export const passOrderToClient = (listOrder: any[])  => {
         ward,
         phone,
         statusDate,
+        statusPoint,
         statusIsDone,
   
       } : {
@@ -24,6 +26,7 @@ export const passOrderToClient = (listOrder: any[])  => {
         ward: any,
         phone: string,
         statusDate: any[],
+        statusPoint : string[],
         statusIsDone: number,
       })=> ({
         id : _id.toString(),
@@ -31,15 +34,18 @@ export const passOrderToClient = (listOrder: any[])  => {
         receiverName,
         address : city + ','+ district + ',' + ward,
         phone,
-        statusDate: statusDate[0],
-        status: statusDate.length.toString(),
-        statusIsDone: statusIsDone
+        statusToPoint : statusDate[1],
+        statusPointSend : statusDate[statusPoint.indexOf(address) * 2],
+        statusIsDone: statusIsDone,
+        statusPoint : statusPoint[0] === address,
+        status : statusDate[0],
       })
     )
 
     return order
-
 }
+
+
 
 export const PassOrderForEmployee = (listOrder: any[]) => {
   if (!Array.isArray(listOrder)) return [];
@@ -158,3 +164,87 @@ interface orderStatus {
   statusLength : number,
 }
 
+
+export const PassOrderToManaGer = (
+  listOrder : any[],
+   dateto : number, 
+   datesend : number) => {
+  if (!Array.isArray(listOrder)) return [];
+  const order = listOrder.map((
+      {
+        _id,
+        description,
+        receiverName,
+        city,
+        district,
+        ward,
+        phone,
+        statusDate,
+        statusIsDone,
+  
+      } : {
+        _id : any,
+        description: any,
+        receiverName: any,
+        city: any,
+        district: any,
+        ward: any,
+        phone: string,
+        statusDate: any[],
+        statusIsDone: number,
+      })=> ({
+        id : _id.toString(),
+        description,
+        receiverName,
+        address : city + ','+ district + ',' + ward,
+        phone,
+        Dateto : statusDate[dateto],
+        DateSend : statusDate[datesend],
+        status: statusDate.length.toString(),
+        statusIsDone: statusIsDone
+      })
+    )
+
+    return order
+}
+
+export const passOrderToOwner = (listOrder: any[])  => {
+  if (!Array.isArray(listOrder)) return [];
+  const order : orderOwner[] = listOrder.map((
+      {
+        _id,
+        description,
+        receiverName,
+        city,
+        district,
+        ward,
+        phone,
+        statusDate,
+        statusPoint,
+        statusIsDone,
+  
+      } : {
+        _id : any,
+        description: any,
+        receiverName: any,
+        city: any,
+        district: any,
+        ward: any,
+        phone: string,
+        statusDate: any[],
+        statusPoint : string[],
+        statusIsDone: number,
+      })=> ({
+        id : _id.toString(),
+        description,
+        receiverName,
+        address : city + ','+ district + ',' + ward,
+        phone,
+        point : statusPoint[statusPoint.length-1],
+        status : statusIsDone,
+        
+      })
+    )
+
+    return order
+}

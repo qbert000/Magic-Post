@@ -12,6 +12,7 @@ import { currentUser } from "@clerk/nextjs";
 import { fetchUser } from "@/lib/actions/user.action";
 import { userInfo } from "os";
 import InventoryBox from "@/components/forms/InventoryBox";
+import { GetTransPoint } from "@/lib/actions/transformPoint.action";
 
 const Page = async () => {
   const user = await currentUser();
@@ -19,8 +20,12 @@ const Page = async () => {
 
   const userInfor = await fetchUser(user.id);
 
+  const transpoint = await GetTransPoint(userInfor.workPlace)
+  if(!transpoint) return
+
   const userdata = {
     workPlace: userInfor.workPlace.toString(),
+    address : transpoint.address,
   };
 
   return (

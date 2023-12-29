@@ -12,19 +12,20 @@ const Page = async () => {
     if(!user) return 
     const userInfor = await fetchUser(user.id)
 
+    const transpoint = await GetTransPoint(userInfor.workPlace)
+    if(!transpoint) return 
 
     // lay order theo status
-    const listOrder = await TransPointGetOrderByStatus(userInfor.workPlace,Status.inventoryted)
+    const listOrder = await TransPointGetOrderByStatus(userInfor.workPlace,Status.inventoryted, transpoint.address)
     if(!listOrder) return 
 
 
-    const transpoint = await GetTransPoint(userInfor.workPlace)
-    if(!transpoint) return 
+
 
 
     const selectBox : SelectStatusBox = {
         title : "Đã được gửi đi",
-        parentPoint : transpoint.gatherPoint,// id cua diem 
+        parentPoint : transpoint.gatherPoint,// id cua diem cha
         workPlace : transpoint.address,  // dia chi cua diem 
         status : Status.inventoryted,  
     }

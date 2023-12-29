@@ -1,11 +1,11 @@
 'use server'
 
-import { Status } from "@/client/contants/enum";
+import { ReSize, Status } from "@/client/contants/enum";
 import Order from "../models/order.model";
 import TransPoint from "../models/transPoint.model";
 import User from "../models/user.model";
 import connectData from "../mongoose"
-import { PassOrderToTableStatus } from "@/client/util/orderUtil";
+import { PassOrderToTableStatus, passOrderToOwner } from "@/client/util/orderUtil";
 
 interface Params {
     sender : string,
@@ -49,7 +49,7 @@ export async function createNewOrder({
             description,
             email ,
             statusDate: createAt,
-            statusOption: "don hang duoc tao",
+            statusOption: "Đơn hàng được tạo",
             statusIsDone: Status.wait,
             typeOrder,
             specailService,
@@ -90,10 +90,14 @@ export async function fetchOrder(id:string) {
 }
 
 // update status //done
-export async function UpdateStatus(id:String, des:String)  {
+export async function UpdateStatus(
+    id:String, 
+    des:String, 
+    )  {
     connectData();
     const date = new Date();
-    await Order.findByIdAndUpdate({_id:id},{
+    
+        await Order.findByIdAndUpdate({_id:id},{
         $push: {
             statusDate: date,
             statusOption: des,
@@ -104,7 +108,7 @@ export async function UpdateStatus(id:String, des:String)  {
 // update order to transs or gather over 
 export async function UpdatePointDone(
     id: string,
-    status : Status) {
+    status : Status,) {
     connectData()
     await Order.findByIdAndUpdate({_id:id},{
         $set : {
@@ -112,6 +116,8 @@ export async function UpdatePointDone(
         }
     })
 }
+
+
 //return list date status and list option status // done
 export async function fetchStatus(id:String) {
     connectData();
@@ -122,6 +128,34 @@ export async function fetchStatus(id:String) {
             date:statusDateArray,
             option: status.statusOption
         };
+}
+
+
+
+// chu tich action
+
+// chu tich lay don hang
+export async function GetAllOrderByOwner(pageNumber : number, pageSize : number) {
+    try {
+        connectData()
+        const skipAmount = (pageNumber - 1) * pageSize;
+        const order = await Order.find({statusIsDone: {$gt : Status.wait}})
+        .sort({ "statusDate.0": -1  })
+        .skip(skipAmount)
+        .limit(pageSize)
+
+
+        return order
+
+    } catch {
+
+    }
+}
+
+export async function GetNumberPage () {
+    connectData()
+    const numberpage = await Order.countDocuments({statusIsDone : {$gt : Status.wait}})
+    return numberpage / ReSize.pageSize ;
 }
 
 

@@ -13,6 +13,7 @@ interface user {
 interface Props {
     user : {
         workPlace : string,
+        address : string,
     }
 }
 
@@ -35,7 +36,7 @@ const InventoryBox = ({user} : Props) => {
         <FindUser finduser={finduser}/>
         {
             listorder? 
-            <PaginationPage data={listorder} workPlace={user.workPlace} />
+            <PaginationPage data={listorder} user={user} />
             :
             <>
             

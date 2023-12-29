@@ -1,14 +1,12 @@
-'use client'
-
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 
 
 
 
 const Page = () => {
-    const router = useRouter()
 
-    router.push("/manageGather/employees")
+    redirect("/manageGather/employees")
+
     
 }
 

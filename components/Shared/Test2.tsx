@@ -3,9 +3,11 @@ import { createNewTransformPoint } from "@/lib/actions/transformPoint.action"
 import { Button } from "../ui/button"
 import { CreateNewGartherPoint } from "@/lib/actions/gatherPoint.action"
 
+interface Props {
+  user : any[],
+}
 
-
-const Test2 = () => {
+const Test2 = ({user}: Props) => {
 
   const submit = async  () => {
     await createNewTransformPoint("Quận 1")
@@ -22,7 +24,9 @@ const Test2 = () => {
   return (
     <>
 
-    <Button onClick={() => submit()}></Button>
+    {/* <Button onClick={() => submit()}></Button> */}
+
+    <Button onClick={()=> console.log(user)}>click</Button>
     </>
   )
 }

@@ -1,4 +1,4 @@
-import { PathRoot } from "@/client/contants/enum";
+import { Career, PathRoot } from "@/client/contants/enum";
 import { LeftbarLinkOwner, RightbarLinkNormal } from "@/client/contants/sidebarlink";
 import Leftbar from "@/components/Shared/Leftbar";
 import Rightbar from "@/components/Shared/Rightbar";
@@ -7,6 +7,7 @@ import { fetchUser } from "@/lib/actions/user.action";
 import { currentUser } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { redirect } from "next/navigation";
 // import "@/a"
 
 
@@ -27,6 +28,7 @@ async function RootLayout ({children}: Props) {
     const user = await currentUser()
     if(!user) return 
     const userInfor = await fetchUser(user.id)
+    if(userInfor.career !== Career.owner) redirect("/")
     const career = userInfor.career
     return (
         <>

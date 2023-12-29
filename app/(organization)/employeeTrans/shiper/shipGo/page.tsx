@@ -13,13 +13,13 @@ const Page = async () => {
     if(!user) return
     const userInfor = await fetchUser(user.id)
 
-
-    // lay order theo status 
-    const listorder = await TransPointGetOrderByStatus(userInfor.workPlace, Status.transSendUser)
-    if(!listorder) return 
-
     const transpoint = await GetTransPoint(userInfor.workPlace)
     if(!transpoint) return 
+    // lay order theo status 
+    const listorder = await TransPointGetOrderByStatus(userInfor.workPlace, Status.transSendUser, transpoint.address)
+    if(!listorder) return 
+
+
 
     const selectBox : SelectStatusBox = {
         title : "Đơn đã được gửi tới người nhận",

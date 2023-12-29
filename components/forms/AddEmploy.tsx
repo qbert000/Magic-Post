@@ -1,82 +1,78 @@
 'use client'
 
-import { EmployeeValidation } from "@/lib/validations/employee";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { Active, Career } from "@/client/contants/enum";
+import { addEmployeetoOzigation, addEmployeetoOzigationSpe } from "@/lib/actions/user.action";
 import { usePathname, useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
-import * as z from "zod";
-import {
-    Form,
-    FormControl,
-    FormDescription,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
-  } from "@/components/ui/form"
-import { Input } from "../ui/input";
-import { addEmployeetoOzigation } from "@/lib/actions/user.action";
+import { Button } from "../ui/button";
 
 
 interface Props {
     workPlace : string,
-    career: string,
-    type : number,
+    career: Career,
+    userid: string,
+    name : string,
+    isPostion : boolean,
+    active : string | null,
+    setComplete : ()=> void,
+    type : "owner" | null
 }
 
 
-const AddEmploy = ({workPlace, career, type}: Props) => {
+const AddEmploy = ({workPlace, career, userid, name, isPostion, active,type, setComplete}: Props) => {
     const router = useRouter()
     const pathname = usePathname
 
-    const form = useForm<z.infer<typeof EmployeeValidation>> ({
-        resolver: zodResolver(EmployeeValidation),
-        defaultValues : {
+    
 
+    const onSubmit = async () => {
+        if(type === null) {
+           await addEmployeetoOzigation(userid, career, workPlace) 
+           console.log(userid)
+           console.log(career)
+           console.log(workPlace)
+        } else {
+            await addEmployeetoOzigationSpe(userid, career, workPlace) 
+            console.log(userid)
+            console.log(career)
+            console.log(workPlace)
         }
-    })
-
-    const onSubmit = async (values : z.infer<typeof EmployeeValidation>) => {
-        const sub = await addEmployeetoOzigation({
-            id: values.id,
-            carrer: career,
-            workPlace: workPlace,
-        })
-        if(!sub) {
-        }
+        // them nhan vien 
+        
+        setComplete()
         router.refresh()
     }
 
 
     return (
         <>
-        <Form {...form} >
-            <form
-                className=""
-                onSubmit={form.handleSubmit(onSubmit)}
-            >
-                {/* id  */}
-                <FormField
-                    control={form.control}
-                    name = "id"
-                    render = {({field}) => (
-                        <FormItem className="">
-                            <FormLabel className="">
-                                carrer
-                            </FormLabel>
-                            <FormControl>
-                                <Input 
-                                    type="text"
-                                    className=""
-                                    {...field}
-                                />
-                            </FormControl>
-                        </FormItem>
-                    )}
-                />
+        {
+            active === Active.notadd ?
+            <><label className="mt-3 text-delete">Không có quyền tuyển nhân viên</label></>
+            :
 
-            </form>
-        </Form>
+            <div className="flex flex-col gap-3 w-full mt-10">
+            { isPostion ? 
+                <div className="basis-1/4 justify-center">
+                {name} : Đã Là Nhân Viên
+                </div>
+                :
+                <div className="basis-1/4 justify-center">
+                    Đồng ý tuyển nhân viên  : { name }
+
+                </div>
+            }
+            <div className="mt-3 justify-center">
+                <Button 
+                disabled={isPostion}
+                className="bg-brand-500"
+                onClick={()=> onSubmit()}>
+                    Đồng ý
+                </Button>
+            </div>
+            
+        </div>
+        }
+        
         
         </>
     )

@@ -11,9 +11,10 @@ const Page = async () => {
     if(!user) return 
 
     const userInfor = await fetchUser(user.id)
-    const transPoint = await ManagerTransGetEmployee(userInfor.workPlace)
+    
+    const employ = await ManagerTransGetEmployee(userInfor.workPlace)
 
-    const listEmploy = convertUserToTable(transPoint)
+    const listEmploy = convertUserToTable(employ)
     // {name, career }
 
     return (

@@ -12,7 +12,7 @@ export const orderTableValue = {
     description : "description",
     phone : "phone",
     receiverName : "receiverName",
-    statusDate : "statusDate",
+    statusDate : "status",
     status: "statusIsDone",
 }
 

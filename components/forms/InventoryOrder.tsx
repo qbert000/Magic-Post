@@ -20,7 +20,10 @@ interface Props {
     address : string,
     typeOrder: string,
     id : string,
-    workPlace : string,
+    user : {
+      workPlace : string,
+      address : string,
+    }
     pageDone : (page: number) => void,
     page: number,
     done : boolean,
@@ -35,7 +38,7 @@ const InventoryOrder = ({
   receiver,
   address,
   typeOrder,
-  workPlace,
+  user,
   pageDone,
   page,
   done,
@@ -75,7 +78,7 @@ const InventoryOrder = ({
   const onSubmit = async (values: z.infer<typeof PostValidation>) => {
     await UpdateStatus(id, "Đơn hàng được xác nhận thành công")
     await UpdatePointDone(id, Status.inventoryted)
-    await AddOrderToTranPoint(id, workPlace)
+    await AddOrderToTranPoint(id, user.workPlace)
 
     pageDone(page)
   };

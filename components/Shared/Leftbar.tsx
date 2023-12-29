@@ -36,6 +36,7 @@ const Leftbar = ({ sidebarlink, pathnameRoot }: Props) => {
 
               return (
                 <Link
+                  key={link.link}
                   href={`${pathnameRoot}${link.link}`}
                   className={`${
                     isActive && "link_active"

@@ -1,19 +1,34 @@
-import { Company } from "@/client/contants/enum";
+import { SearchColumns } from "@/client/contants/enum";
+import { tachnhanh } from "@/client/util/userUtil";
+import { Owner } from "@/components/columns/UserColumns";
+import TableMagic from "@/components/forms/TableMagic";
+import { OwnerGetTransPoint } from "@/lib/actions/transformPoint.action";
 import { fetchUser } from "@/lib/actions/user.action";
 import { currentUser } from "@clerk/nextjs";
 
 const Page = async () => {
     const user = await currentUser()
     if(!user) return;
-
     const userInfor = await fetchUser(user.id)
-    if(!userInfor.isPostion) return
 
-    if((userInfor.career === Company.owner)) return 
+
+    const employ = await OwnerGetTransPoint()
+    if(!employ) return
+    const newem = tachnhanh(employ)
+
+
 
     return (
         <>
-        transform  
+        <TableMagic 
+        listOrder={newem}
+        columns={Owner}
+        searchColumns={SearchColumns.description}
+        dropMenu={null}
+        selectBox={null}
+
+        /> 
+        {/* <Test2 user={newem}/> */}
         </>
     )
 }

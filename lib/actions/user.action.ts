@@ -4,8 +4,11 @@ import { revalidatePath } from "next/cache";
 import User from "../models/user.model";
 import connectData from "../mongoose"
 import Order from "../models/order.model";
-import { Status } from "@/client/contants/enum";
+import { Active, Career, Status } from "@/client/contants/enum";
 import { PassOrderToInventory } from "@/client/util/orderUtil";
+import TransPoint from "../models/transPoint.model";
+import GatherPoint from "../models/gatherPoint.model";
+import { connect } from "http2";
 
 interface Params {
     id: string,
@@ -53,6 +56,21 @@ export async function fetchUser(userId:string) {
     } catch {
         // throw new Error('failed to fetch user')
     }
+}
+
+export async function fecthIsPostion(userId:string) {
+  try {
+      connectData();
+
+      const user = await User.findOne({_id:userId}).lean() // tra ve mot user
+      return {
+        isPostion :(user as any).isPostion,
+        name : (user as any).firstName + " " + (user as any).lastName
+      }
+          
+  } catch {
+      // throw new Error('failed to fetch user')
+  }
 }
 
 // tim uer bang email tra ve name
@@ -133,30 +151,193 @@ export async function GetOrderByStatus(
   }
 }
 
-interface Props {
-  id : string,
-  workPlace: string,
-  carrer: string,
-}
+
 // add employee to ozigation 
-export async function addEmployeetoOzigation({id, workPlace, carrer} : Props) {
+export async function addEmployeetoOzigation(
+  userid : string,
+  career : Career,
+  workPlace : string,
+) {
   try {
     connectData();
 
-    const user = await User.findOne({id: id}, {
-      $set:{
+    const user = await User.findByIdAndUpdate({_id: userid}, {
+      $set : {
         isPostion : true,
-        career : carrer,
+        career : career,
         workPlace: workPlace,
       }
     })
-    return 1
+
+    if(career === Career.employeeTrans) {
+      await TransPoint.findByIdAndUpdate({_id : workPlace}, {
+          $push : {
+              employeer : userid
+          }
+      })
+  } else if(career === Career.managerTrans) {
+      await TransPoint.findByIdAndUpdate({_id : workPlace}, {
+          $push : {
+              manager : userid
+          }
+      })
+  } else if (career === Career.employeeGather) {
+    await GatherPoint.findByIdAndUpdate({_id : workPlace}, {
+      $push : {
+        employeer : userid
+      }
+    })
+  } else if (career = Career.magegerGather) {
+    await GatherPoint.findByIdAndUpdate({_id : workPlace}, {
+      $push : {
+        manager : userid
+      }
+    })
+  }
 
   } catch {
-    return 0
 
   }
 
+}
+
+export async function addEmployeetoOzigationSpe(
+  userid : string,
+  career : Career,
+  workPlace : string,
+) {
+  try {
+    connectData();
+
+  if(career === Career.employeeTrans) {
+      const trans = await TransPoint.findOneAndUpdate({address: workPlace}, {
+          $push : {
+              employeer : userid
+          }
+      }).lean()
+      const work = (trans as any)._id
+      await User.findByIdAndUpdate({_id: userid}, {
+        $set:{
+          isPostion : true,
+          career : career,
+          workPlace: work,
+        }
+      })
+
+  } else if(career === Career.managerTrans) {
+      const trans = await TransPoint.findOneAndUpdate({address : workPlace}, {
+          $push : {
+              manager : userid
+          }
+      }).lean()
+      const work = (trans as any)._id
+      await User.findByIdAndUpdate({_id: userid}, {
+        $set:{
+          isPostion : true,
+          career : career,
+          workPlace: work,
+        }
+      })
+  } else if (career === Career.employeeGather) {
+    const gather = await GatherPoint.findOneAndUpdate({address : workPlace}, {
+      $push : {
+        employeer : userid
+      }
+    }).lean()
+    const work = (gather as any)._id
+    await User.findByIdAndUpdate({_id: userid}, {
+      $set:{
+        isPostion : true,
+        career : career,
+        workPlace: work,
+      }
+    })
+  } else if (career = Career.magegerGather) {
+    const gather = await GatherPoint.findOneAndUpdate({address : workPlace}, {
+      $push : {
+        manager : userid
+      }
+    }).lean()
+    const work = (gather as any)._id
+    await User.findByIdAndUpdate({_id: userid}, {
+      $set:{
+        isPostion : true,
+        career : career,
+        workPlace: work,
+      }
+    })
+  }
+
+  } catch {
+
+  }
+
+}
+
+
+// chu tich action
+
+// owner duoi nhan vien 
+export async function RemoverEmploy (
+  userid : string,
+  workPlace : string,
+  career : string,
+) {
+  try {
+    connectData()
+
+    const user = await User.findByIdAndUpdate({_id : userid}, {
+      $set : {
+        workPlace : userid,
+        isPostion : false,
+        career : ""
+      }
+    })
+
+    if (career === Career.magegerGather ) {
+       await GatherPoint.findByIdAndUpdate({_id : workPlace}, {
+        $pull : {
+          manager : userid
+        }
+      })
+    } else if (career === Career.employeeGather) {
+      await GatherPoint.findByIdAndUpdate({_id : workPlace}, {
+        $pull : {
+            employeer : userid
+        }
+      })
+    } else if (career === Career.employeeTrans) {
+      await TransPoint.findByIdAndUpdate({_id : workPlace}, {
+        $pull : {
+            employeer : userid
+        }
+      })
+    } else {
+      await TransPoint.findByIdAndUpdate({_id : workPlace}, {
+        $pull : {
+          manager : userid
+        }
+      })
+    }
+
+  } catch {
+
+  }
+}
+
+
+// sua active nguoi dung
+export async function UpdateActive (active : Active, userid : string) {
+  try {
+    connectData()
+    const user = await User.findOneAndUpdate({_id : userid}, {
+      $set : {
+        active : active,
+      }
+    })
+  } catch {
+
+  }
 }
 
 

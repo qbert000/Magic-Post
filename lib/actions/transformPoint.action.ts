@@ -6,7 +6,7 @@ import connectData from "../mongoose"
 import Order from "../models/order.model"
 import { PassOrderForEmployee, passOrderToClient } from "@/client/util/orderUtil"
 import { PassTransPointToClient } from "@/client/util/pointUtil"
-import { Status } from "@/client/contants/enum"
+import { Career, Status } from "@/client/contants/enum"
 
 // tao cac diem giao dich (cai nay phai viet truoc mot obejct luu tung dia danh mot)
 export async function createNewTransformPoint(address: string) {
@@ -36,15 +36,21 @@ export async function ManagerTransGetEmployee (_id : string) {
         const transPoint = await TransPoint.findById(_id ).populate ({
             path: "employeer",
             model: User
+        }).populate({
+            path: "manager",
+            model: User,
         }).lean()
 
         const employees = (transPoint as any).employeer
-        return employees
+        const manager = (transPoint as any).manager
+        const list = employees.concat(manager)
+        return list
 
     }catch {
 
     }
 }
+
 
 // quan ly lay don hang trong diem giao dich
 export async function ManagerTransGetOrder (_id: string) {
@@ -57,17 +63,44 @@ export async function ManagerTransGetOrder (_id: string) {
 
         const orders = (transPoint as any).order
 
-        return orders
+        return {
+            orders : orders,
+            address : (transPoint as any).address,
+        }
 
     }catch {
 
     } 
 }
 
+// xoa nhan vien 
+export async function ManagerTransRemoveEmployee (_id : string, workPlace : string,) {
+    try {
+        connectData()
+        const transpoint = await TransPoint.findByIdAndUpdate({_id : workPlace}, {
+            $pull : {
+                employeer : _id
+            }
+        })
+
+        const user = await User.findByIdAndUpdate({_id:_id}, {
+            $set : {
+                workPlace : _id,
+                isPostion : false,
+                career : "",
+            }
+        })
+
+    } catch {
+
+    }
+}
+
 // lay order theo trang thai do hang 
 export async function TransPointGetOrderByStatus (
     workPlace : string,
-    status: Status) {
+    status: Status,
+    address: string,) {
     try {
         connectData()
         const transPoint = await TransPoint.findOne({_id : workPlace}).populate({
@@ -77,8 +110,9 @@ export async function TransPointGetOrderByStatus (
 
         const orders = (transPoint as any).order
         const newOrders = orders.filter((order:any) => order.statusIsDone === status)
+        const orderExact = newOrders.filter((order: any)=> order.statusPoint[order.statusPoint.length-1] === address)
 
-        const orderOver = PassOrderForEmployee(newOrders)
+        const orderOver = PassOrderForEmployee(orderExact)
         return orderOver
 
     } catch {
@@ -90,18 +124,22 @@ export async function TransPointGetOrderByStatus (
 export async function AddOrderToTranPoint(order : string, transpoint: string) {
     try {
         connectData()
-        await TransPoint.findOneAndUpdate({_id: transpoint}, {
+        const trans = await TransPoint.findOneAndUpdate({_id: transpoint}, {
             $push : {
                 order: order,
+            }
+        }).lean()
+
+        const address = (trans as any).address
+        const newOrder = await Order.findOneAndUpdate({_id : order}, {
+            $push : {
+                statusPoint : address,
             }
         })
     }catch {
 
     }
 }
-
-
-
 
 
 
@@ -124,3 +162,26 @@ export async function EmployTransGetOrder(_id : string ) {
     }
 
 }
+
+
+// lay all transport 
+export async function OwnerGetTransPoint () {
+    try {
+        connectData()
+        const transpoint =await TransPoint.find().populate({
+            path: "employeer",
+            model: User
+        }).populate({
+            path: "manager",
+            model: User,
+        }).lean()
+
+        return transpoint
+
+    }catch {
+
+    }
+}
+
+
+

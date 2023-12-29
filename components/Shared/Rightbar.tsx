@@ -12,9 +12,9 @@ interface Props {
 }
 
 interface Link {
-  label: string;
-  value: string;
-  link: string;
+  label: string,
+  value: string,
+  link: string,
 }
 
 const Rightbar = ({ sidebarlink, pathnameRoot }: Props) => {
@@ -26,7 +26,7 @@ const Rightbar = ({ sidebarlink, pathnameRoot }: Props) => {
           {sidebarlink.map((link) => {
             return (
               <>
-                <Link href={`${pathnameRoot}${link.link}`}>
+                <Link key={link.value} href={`${pathnameRoot}${link.link}`}>
                   <Button
                     className="bg-brand-500 md hover:bg-brand-500 hover:text-white"
                     size={"sm"}

@@ -169,15 +169,15 @@ const CreateOrder = ({user, setcomplete} : Props) => {
                         ? address.find(
                             (city) => city.value === field.value
                             )?.label
-                        : "Select language"}
+                        : "Thành Phố"}
                         <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                     </Button>
                     </FormControl>
                 </PopoverTrigger>
                 <PopoverContent className="w-[200px] p-0">
                     <Command>
-                    <CommandInput placeholder="Search language..." />
-                    <CommandEmpty>No language found.</CommandEmpty>
+                    <CommandInput placeholder="Thành Phố" />
+                    <CommandEmpty>hết</CommandEmpty>
                     <CommandGroup>
                         {address.map((city) => (
                         <CommandItem
@@ -225,14 +225,14 @@ const CreateOrder = ({user, setcomplete} : Props) => {
                         ? disValue?.district.find(
                             (value)=> value.value === field.value
                         )?.label
-                        : "Select language"}
+                        : "Quận Huyện"}
                         <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                     </Button>
                     </FormControl>
                 </PopoverTrigger>
                 <PopoverContent className="w-[200px] p-0">
                     <Command>
-                    <CommandInput placeholder="Search language..." />
+                    <CommandInput placeholder="Quận/Huyện" />
                     <CommandEmpty>No language found.</CommandEmpty>
                     <CommandGroup>
                         {disValue?.district.map((dis) => (
@@ -281,14 +281,14 @@ const CreateOrder = ({user, setcomplete} : Props) => {
                         ? wardValue?.ward.find(
                             (value) => value.value === field.value
                             )?.label
-                        : "Select language"}
+                        : "Xã phường"}
                         <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                     </Button>
                     </FormControl>
                 </PopoverTrigger>
                 <PopoverContent className="w-[200px] p-0">
                     <Command>
-                    <CommandInput placeholder="Search language..." />
+                    <CommandInput placeholder="Xã Phường" />
                     <CommandEmpty>No language found.</CommandEmpty>
                     <CommandGroup>
                         {wardValue?.ward.map((item) => (

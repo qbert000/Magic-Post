@@ -170,19 +170,8 @@ export const LeftbarLinkOwner : link[] =[
         label: "Thống Kê",
         value : "statistics",
         icon: <></>,
-        link: "/statistics",
+        link: "/statistics/1",
         sub: [
-            {
-                label: "Giao Dịch",
-                value: "trans",
-                link: "/statistics/transform"
-            },
-            {
-                label:"Tập Kết",
-                value: "gather",
-                link: "/statistics/gather",
-            },
-            
         ]
     }
 ]
@@ -200,7 +189,7 @@ export const RightbarLinkNormal = [
         label: "Thêm Nhân Viên",
         value : "add employee",
         link: "/addEmployee",
-    }
+    },
 ]
 
 export const RightbarLinkEmployeeTrans = [

@@ -1,3 +1,4 @@
+import { Active } from "@/client/contants/enum";
 import mongoose, { mongo } from "mongoose";
 
 const userSchema = new mongoose.Schema({
@@ -17,6 +18,9 @@ const userSchema = new mongoose.Schema({
     },
     isPostion: {type: Boolean, default: false},
     career : { type: String, default: '' },
+    active : {
+        type : String, default: Active.normal
+    },
     workPlace : {
         type: mongoose.Schema.Types.ObjectId,
         ref: "TransPoint" || "GatherPoint"

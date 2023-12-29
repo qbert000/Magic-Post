@@ -11,7 +11,7 @@ const Page = async () => {
 
     const listOrders = await GetOrderByStatus(user.id, Status.cancel)
 
-    const orders = passOrderToClient(listOrders)
+    const orders = passOrderToClient(listOrders, "")
 
     return (
         <>

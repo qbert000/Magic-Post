@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import "../globals.css"
 import { fetchUser } from "@/lib/actions/user.action";
 import Provider from "../(Provider)/NextUiProvider";
+import { redirect } from "next/navigation";
 
 
 
@@ -24,13 +25,9 @@ async function RootLayout({children}: Props) {
     if(!user) return
 
     const userInfor = await fetchUser(user.id)
-    // if(!userInfor.isPostion) {
-    //     return(
-    //         <>
-    //         trang khong huu hien
-    //         </>
-    //     )
-    // }
+    if(!userInfor.isPostion) {
+        redirect("/")
+    }
     return (
         <>
         <ClerkProvider>

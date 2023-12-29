@@ -14,7 +14,7 @@ const Page = async () => {
   
   const listOrder = await fetchListOrderOfUser(user.id)
 
-  const orders = passOrderToClient(listOrder)
+  const orders = passOrderToClient(listOrder, "")
 
     return (
         <>

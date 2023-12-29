@@ -46,29 +46,32 @@ const FindUser = ({finduser} : Props) => {
     }
 
     return (
-        <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSearch)} className="w-2/3 space-y-6">
+        <Form {...form} >
+        <form onSubmit={form.handleSubmit(onSearch)} className="w-2/3 space-y-6 items-end flex gap-3 m-3">
         <FormField
           control={form.control}
           name="name"
+          
           render={({ field }) => (
-            <FormItem>
-              <FormLabel>email</FormLabel>
+            <FormItem className="basis-3/4 mr-2">
+              <FormLabel>Nhập email</FormLabel>
               <FormControl>
                 <Input  {...field} />
               </FormControl>
 
-              {  // kiem tra xem email co hop le hay khong 
-                !erro && 
-              <FormDescription>
-                emai không hợp lệ
-              </FormDescription>
-              }
+              
             </FormItem>
           )}
         />
-        <Button type="submit">Tìm Kiếm</Button>
+        <Button type="submit" className="bg-brand-500 hover:bg-brand-500 ">Tìm Kiếm</Button>
+        
         </form>
+        {  // kiem tra xem email co hop le hay khong 
+          !erro && 
+        <FormDescription>
+          emai không hợp lệ
+        </FormDescription>
+        }
         </Form>
     )
 }

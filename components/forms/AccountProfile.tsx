@@ -161,7 +161,7 @@ const AccountProfile =  ({user, btnTitle}:Props) => {
               <FormControl>
                 <Input
                   type='text'
-                  className='account-form_input no-focus'
+                  className=' no-focus'
                   {...field}
                 />
               </FormControl>
@@ -181,7 +181,7 @@ const AccountProfile =  ({user, btnTitle}:Props) => {
               <FormControl>
                 <Input
                   type='text'
-                  className='account-form_input no-focus'
+                  className=' bg-light-1 no-focus'
                   {...field}
                 />
               </FormControl>
@@ -192,7 +192,7 @@ const AccountProfile =  ({user, btnTitle}:Props) => {
         <FormLabel>Email</FormLabel>
         <Input value={user.email} />
       
-        <Button type="submit" className='bg-primary-500'>
+        <Button type="submit" className='bg-brand-500'>
           {btnTitle}
         </Button>
       </form>

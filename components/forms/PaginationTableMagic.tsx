@@ -1,43 +1,27 @@
 'use client'
-import {Pagination, PaginationCursor, PaginationItemRenderProps, PaginationItemType} from "@nextui-org/react";
+import {Button, Pagination, PaginationCursor, PaginationItemRenderProps, PaginationItemType} from "@nextui-org/react";
 import { ChevronLeft } from 'lucide-react';
-import { Button } from "../ui/button";
-import { useState } from "react";
-import InventoryOrder from "../forms/InventoryOrder";
+// import { Button } from "../ui/button";
+import { useEffect, useState } from "react";
+import TableMagic from "./TableMagic";
+import { GetAllOrderByOwner } from "@/lib/actions/order.action";
+import { orderWork } from "../columns/OrderWork";
+import { SearchColumns } from "@/client/contants/enum";
+import { passOrderToOwner } from "@/client/util/orderUtil";
+import { usePathname, useRouter } from "next/navigation";
 
 interface Props {
-  data : any[]
-  user : {
-    workPlace : string,
-    address : string
-  }
+  pageNumber : number,
+  pageNow : number,
 }
 
-const PaginationPage = ({data, user} : Props) => {
-  const pageNumber = data.length
-  const [i, setI] = useState<number>(0)
-  const [page, setPage] = useState(data[0])// bieu thi so trang
-  const [done, setDone] = useState(data.map((item) => (false))) // trang do hoan thanh hay chua 
-
+const PaginationTableMagic = ({pageNumber, pageNow} : Props) => {
+  const router = useRouter()
+  const [currentPage, setCurrentPage] = useState(pageNow + "");
   const changePage = (page : number) => {
-    setI(page-1)
-    setPage(data[page-1])
     console.log(page)
+    router.push(`/owner/statistics/${page}`)
     
-  }
-
-  const pageDone = (page : number) => {
-    let donevir: boolean[] = [];
-    done.forEach((done, index) => {
-      if(index === page) {
-        donevir.push(true)
-      } else {
-        donevir.push(done)
-      }
-    })
-
-    console.log(donevir)
-    setDone(donevir)
   }
 
   const renderItem = ({
@@ -69,7 +53,7 @@ const PaginationPage = ({data, user} : Props) => {
     if (value === PaginationItemType.DOTS) {
       return <button key={key} className={className}>...</button>;
     }
-
+    
     // cursor is the default item
     return (
       <Button
@@ -85,15 +69,18 @@ const PaginationPage = ({data, user} : Props) => {
       </Button>
     );
   };
+  
+
 
   return (
     <>
+    
     <Pagination
       disableCursorAnimation
       showControls
       loop
       total={pageNumber}
-      initialPage={1}
+      initialPage={parseInt(currentPage)}
       className="gap-2"
       radius="full"
       renderItem={renderItem}
@@ -101,36 +88,10 @@ const PaginationPage = ({data, user} : Props) => {
       onChange={(page:number) => changePage(page)}
     />
 
-    <InventoryOrder 
-      fullname={page.senderName}
-      phone={page.phone}
-      receiver={page.receiverName}
-      address={page.address}
-      typeOrder={page.typeOrder}
-      id={page.id}
-      user = {user}
-      pageDone={pageDone}
-      page={i}
-      done={done[i]}
-    />
-
     </>
   );
 }
 
-export default PaginationPage;
+export default PaginationTableMagic;
 
 
-
-
-// grid grid-cols-2
-
-// flex itemx-center
-// w-4
-// font-light
-// 
-// 
-// 
-// 
-// 
-// 

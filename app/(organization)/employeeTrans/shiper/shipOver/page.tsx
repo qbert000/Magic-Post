@@ -12,15 +12,17 @@ const Page = async () => {
     if(!user) return
     const userInfor = await fetchUser(user.id)
 
+    const transpoint = await GetTransPoint(userInfor.workPlace)
+    if(!transpoint) return
+
     // lay order theo hai trang thai bi huy va chua tra tien
-    const listcancel = await TransPointGetOrderByStatus(userInfor.workPlace, Status.cancel)
-    const listpaynot = await TransPointGetOrderByStatus(userInfor.workPlace, Status.paynot)
+    const listcancel = await TransPointGetOrderByStatus(userInfor.workPlace, Status.cancel, transpoint.address)
+    const listpaynot = await TransPointGetOrderByStatus(userInfor.workPlace, Status.paynot, transpoint.address)
     if(!listpaynot) return 
     const listorder = listcancel?.concat(listpaynot)
     if(!listorder) return
 
-    const transpoint = await GetTransPoint(userInfor.workPlace)
-    if(!transpoint) return
+    
 
     const selectBox : SelectStatusBox = {
         title : "Đã hoàn",
