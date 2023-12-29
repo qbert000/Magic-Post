@@ -1,4 +1,3 @@
-import Test from '@/components/Shared/Test'
 import Test2 from '@/components/Shared/Test2'
 import { fetchUser } from '@/lib/actions/user.action'
 import { UserButton, currentUser } from '@clerk/nextjs'
@@ -35,7 +34,6 @@ export default async function Home() {
       </div>
       
       <section className='mt-9 bg-dark-2 p-10'>
-        <Test2/>
       </section>
     </div>
   )
