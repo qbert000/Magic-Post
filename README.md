@@ -1,5 +1,10 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+![login-i](https://github.com/qbert0/Magic-Post/assets/126874637/9e51121f-326c-4296-b36c-f9f8779b3c35)
+![home-i](https://github.com/qbert0/Magic-Post/assets/126874637/8872c3f2-e738-4d4e-a265-9d3e60f1735a)
+![user-i](https://github.com/qbert0/Magic-Post/assets/126874637/5b560d5f-d1ca-4419-8b48-d7c52ab8988f)
+![owner-i](https://github.com/qbert0/Magic-Post/assets/126874637/043608c3-5ecb-4adc-b055-dbbcf512e991)
+
 ## Getting Started
 
 First, run the development server:
